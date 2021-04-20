@@ -1,4 +1,4 @@
-package com.example.androidapp.ui.home;
+package com.example.androidapp.ui.tasks;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidapp.R;
 
-public class HomeFragment extends Fragment {
+public class TasksFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private TasksViewModel tasksViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        tasksViewModel =
+                new ViewModelProvider(this).get(TasksViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_tasks, container, false);
+        final TextView textView = root.findViewById(R.id.text_tasks);
+        tasksViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
