@@ -35,13 +35,15 @@ public class ManageFragment extends Fragment {
 
         textView6 = root.findViewById(R.id.textView6);
         switch1 = root.findViewById(R.id.switch1);
-        switch1.setChecked(true);
+        
+        manageViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
+            textView6.setText("test");
+        });
+
         switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    textView6.setText("on");
-                } else textView6.setText("off");
+                manageViewModel.requestTerrariumData();
             }
         });
 
