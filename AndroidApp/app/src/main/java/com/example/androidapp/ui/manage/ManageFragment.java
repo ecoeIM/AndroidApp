@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +19,10 @@ import com.example.androidapp.R;
 public class ManageFragment extends Fragment {
 
     private ManageViewModel manageViewModel;
+    private TextView textView6;
+    private Switch switch1;
+    //private boolean artificialLightStatus;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -24,12 +30,21 @@ public class ManageFragment extends Fragment {
                 new ViewModelProvider(this).get(ManageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
         final TextView textView = root.findViewById(R.id.text_manage);
-        manageViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
+
+        textView6 = root.findViewById(R.id.textView6);
+        switch1 = root.findViewById(R.id.switch1);
+        switch1.setChecked(true);
+        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    textView6.setText("on");
+                } else textView6.setText("off");
             }
         });
+
         return root;
     }
 }
