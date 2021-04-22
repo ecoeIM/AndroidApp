@@ -39,6 +39,7 @@ public class ManageRepository {
             @EverythingIsNonNull
             @Override
             public void onResponse(Call<TerrariumData> call, Response<TerrariumData> response) {
+                System.out.println(response.code());
                 if (response.isSuccessful()) {
                     terrariumData.setValue(response.body());
                 }
@@ -47,6 +48,7 @@ public class ManageRepository {
             @EverythingIsNonNull
             @Override
             public void onFailure(Call<TerrariumData> call, Throwable t) {
+                System.out.println(t.toString());
                 Log.i("Retrofit", "Something went wrong :(");
             }
         });

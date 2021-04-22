@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface TerrariumAPI {
-    @GET("terrarium/data")
+    @GET("api/terrarium/data?terrariumDataId=1")
     Call<TerrariumData> getTerrariumData();
 
     @POST("terrarium/data")

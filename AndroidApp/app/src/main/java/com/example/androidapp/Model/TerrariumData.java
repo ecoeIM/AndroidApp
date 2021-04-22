@@ -1,21 +1,21 @@
 package com.example.androidapp.Model;
 
 public class TerrariumData {
-    private int terrariumDataId;
+    private int id;
     private double temperature;
     private double carbonDioxideLevel;
     private double humidityLevel;
     private double naturalLightLevel;
-    private boolean isVentOn;
+    //private boolean isVentOn;
     private boolean isArtificialLightOn;
 
     public TerrariumData(int terrariumDataId, double temperature, double carbonDioxideLevel, double humidityLevel, double naturalLightLevel, boolean isVentOn, boolean isArtificialLightOn) {
-        this.terrariumDataId = terrariumDataId;
+        this.id = terrariumDataId;
         this.temperature = temperature;
         this.carbonDioxideLevel = carbonDioxideLevel;
         this.humidityLevel = humidityLevel;
         this.naturalLightLevel = naturalLightLevel;
-        this.isVentOn = isVentOn;
+        //this.isVentOn = isVentOn;
         this.isArtificialLightOn = isArtificialLightOn;
     }
 
@@ -23,11 +23,11 @@ public class TerrariumData {
     }
 
     public int getTerrariumDataId() {
-        return terrariumDataId;
+        return id;
     }
 
     public void setTerrariumDataId(int terrariumDataId) {
-        this.terrariumDataId = terrariumDataId;
+        this.id = terrariumDataId;
     }
 
     public double getTemperature() {
@@ -62,13 +62,13 @@ public class TerrariumData {
         this.naturalLightLevel = naturalLightLevel;
     }
 
-    public boolean isVentOn() {
-        return isVentOn;
-    }
+    // boolean isVentOn() {
+       //return isVentOn;
+    //}
 
-    public void setVentOn(boolean ventOn) {
-        isVentOn = ventOn;
-    }
+    //public void setVentOn(boolean ventOn) {
+      //  isVentOn = ventOn;
+    //}
 
     public boolean isArtificialLightOn() {
         return isArtificialLightOn;
