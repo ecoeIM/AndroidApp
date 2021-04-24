@@ -1,5 +1,6 @@
 package com.example.androidapp.ui.monitor;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidapp.R;
+import com.example.androidapp.SettingsActivity;
 
 public class MonitorFragment extends Fragment {
 
@@ -23,6 +25,7 @@ public class MonitorFragment extends Fragment {
     private ImageButton imageButtonHumidity;
     private ImageButton imageButtonCo2;
     private ImageButton imageButtonLight;
+    private ImageButton imageButtonSettings;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,6 +39,16 @@ public class MonitorFragment extends Fragment {
         imageButtonHumidity = root.findViewById(R.id.imageButtonHumidity);
         imageButtonCo2 = root.findViewById(R.id.imageButtonCo2);
         imageButtonLight = root.findViewById(R.id.imageButtonLight);
+        imageButtonSettings = root.findViewById(R.id.imageButtonSettings);
+
+
+        imageButtonSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSettings = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(toSettings);
+            }
+        });
 
         imageButtonTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
