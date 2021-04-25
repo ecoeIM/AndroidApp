@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,12 @@ public class ManageFragment extends Fragment {
 
     private ManageViewModel manageViewModel;
     private ImageButton imageButtonHelp;
-    //private boolean artificialLightStatus;
+    private ImageView imageViewVent;
+    private ImageView imageViewLight;
+    private TextView ventStatus;
+    private TextView lightStatus;
+    private boolean isVentOpen;
+    private boolean isLightOn;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,6 +39,34 @@ public class ManageFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_manage);
         //manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         imageButtonHelp = root.findViewById(R.id.imageButtonHelp);
+        imageViewVent = root.findViewById(R.id.imageViewVent);
+        imageViewLight = root.findViewById(R.id.imageViewLight);
+        ventStatus = root.findViewById(R.id.ventStatus);
+        lightStatus = root.findViewById(R.id.lightStatus);
+
+        imageViewLight.setOnClickListener(v -> {
+            if (isLightOn) {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                lightStatus.setText("OFF");
+                isLightOn = false;
+            } else {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                lightStatus.setText("ON");
+                isLightOn = true;
+            }
+        });
+
+        imageViewVent.setOnClickListener(v -> {
+            if (isVentOpen) {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                ventStatus.setText("CLOSED");
+                isVentOpen = false;
+            } else {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                ventStatus.setText("OPEN");
+                isVentOpen = true;
+            }
+        });
 
         imageButtonHelp.setOnClickListener(new View.OnClickListener() {
             @Override

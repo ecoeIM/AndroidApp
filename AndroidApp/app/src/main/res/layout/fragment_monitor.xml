@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.monitor.MonitorFragment"
-    android:background="@color/gray">
+    android:background="@color/gray"
+    tools:context=".ui.monitor.MonitorFragment">
 
     <TextView
         android:id="@+id/text_monitor"
@@ -91,7 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:text="123456..."
+                android:text="@string/defaultDouble"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonTemperature"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:elevation="10dp"
-                android:text="123456..."
+                android:text="@string/defaultDouble"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonHumidity"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -186,7 +186,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
-                android:text="123456..."
+                android:text="@string/defaultDouble"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/imageButtonCo2"
                 app:layout_constraintTop_toTopOf="parent" />

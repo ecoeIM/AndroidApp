@@ -14,7 +14,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="welcome_text">Welcome</string>
-    <string name="defaultDouble">123456...</string>
+    <string name="defaultDouble">loading...</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
