@@ -1,5 +1,6 @@
 package com.example.androidapp.ui.manage;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -53,13 +55,14 @@ public class ManageFragment extends Fragment {
             manageViewModel.requestChangeTerrariumVentState(!isVentOpen);
         });
 
-        imageButtonHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Press on the icon to toggle switch", Toast.LENGTH_LONG).show();
-                //TODO: dialog window here
-                manageViewModel.requestTerrariumData();
-            }
+        imageButtonHelp.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("Press on the icon to toggle switch. It might require some time for changes to apply on the IoT side.");
+            builder.setPositiveButton("Close", (dialog, id) -> {
+                //close
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
 
@@ -67,7 +70,7 @@ public class ManageFragment extends Fragment {
             this.isLightOn = terrariumData.isArtificialLightOn();
             this.isVentOpen = terrariumData.isVentOn();
             if (!isLightOn) {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_off_24);
                 lightStatus.setText("OFF");
                 isLightOn = false;
             } else {
@@ -77,7 +80,7 @@ public class ManageFragment extends Fragment {
             }
 
             if (!isVentOpen) {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_off_24);
                 ventStatus.setText("CLOSED");
                 isVentOpen = false;
             } else {
@@ -89,11 +92,11 @@ public class ManageFragment extends Fragment {
 
         manageViewModel.getTerrariumLightState().observe(getViewLifecycleOwner(), state -> {
             if (!state) {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_off_24);
                 lightStatus.setText("OFF");
                 isLightOn = false;
             } else {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_on_24);
                 lightStatus.setText("ON");
                 isLightOn = true;
             }
@@ -101,11 +104,11 @@ public class ManageFragment extends Fragment {
 
         manageViewModel.getTerrariumVentState().observe(getViewLifecycleOwner(), state -> {
             if (!state) {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_off_24);
                 ventStatus.setText("CLOSED");
                 isVentOpen = false;
             } else {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_24);
                 ventStatus.setText("OPEN");
                 isVentOpen = true;
             }
