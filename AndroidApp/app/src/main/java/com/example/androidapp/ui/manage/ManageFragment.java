@@ -19,8 +19,6 @@ import com.example.androidapp.R;
 public class ManageFragment extends Fragment {
 
     private ManageViewModel manageViewModel;
-    private TextView textView6;
-    private Switch switch1;
     //private boolean artificialLightStatus;
 
 
@@ -33,10 +31,9 @@ public class ManageFragment extends Fragment {
         //manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
 
-        textView6 = root.findViewById(R.id.textView6);
-        switch1 = root.findViewById(R.id.switch1);
         
-        manageViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
+      /*
+      *   manageViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
             textView6.setText("test");
         });
 
@@ -45,7 +42,7 @@ public class ManageFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 manageViewModel.requestTerrariumData();
             }
-        });
+        });*/
 
         return root;
     }
