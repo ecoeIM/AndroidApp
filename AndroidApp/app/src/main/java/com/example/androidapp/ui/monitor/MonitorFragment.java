@@ -33,7 +33,7 @@ public class MonitorFragment extends Fragment {
                 new ViewModelProvider(this).get(MonitorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_monitor, container, false);
         final TextView textView = root.findViewById(R.id.text_monitor);
-        monitorViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         imageButtonTemperature = root.findViewById(R.id.imageButtonTemperature);
         imageButtonHumidity = root.findViewById(R.id.imageButtonHumidity);

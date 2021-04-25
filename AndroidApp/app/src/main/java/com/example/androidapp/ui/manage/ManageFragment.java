@@ -30,7 +30,7 @@ public class ManageFragment extends Fragment {
                 new ViewModelProvider(this).get(ManageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
         final TextView textView = root.findViewById(R.id.text_manage);
-        manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
 
 
         textView6 = root.findViewById(R.id.textView6);
