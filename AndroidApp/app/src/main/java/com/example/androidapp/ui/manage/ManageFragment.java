@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.example.androidapp.R;
 public class ManageFragment extends Fragment {
 
     private ManageViewModel manageViewModel;
+    private ImageButton imageButtonHelp;
     //private boolean artificialLightStatus;
 
 
@@ -29,6 +32,14 @@ public class ManageFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
         final TextView textView = root.findViewById(R.id.text_manage);
         //manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        imageButtonHelp = root.findViewById(R.id.imageButtonHelp);
+
+        imageButtonHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Press on the icon to toggle switch", Toast.LENGTH_LONG).show();
+            }
+        });
 
 
         

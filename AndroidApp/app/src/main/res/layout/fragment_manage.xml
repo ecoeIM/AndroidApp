@@ -36,7 +36,7 @@
         android:id="@+id/cardView5"
         android:layout_width="@dimen/round_card_diameter"
         android:layout_height="@dimen/round_card_diameter"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="30dp"
         app:cardCornerRadius="100dp"
         app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
         android:id="@+id/cardView6"
         android:layout_width="@dimen/round_card_diameter"
         android:layout_height="@dimen/round_card_diameter"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="88dp"
         app:cardCornerRadius="100dp"
         app:cardElevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/cardView6">
@@ -153,10 +153,10 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButtonHelp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginTop="46dp"
         android:layout_marginEnd="24dp"
         android:background="@null"
         android:src="@drawable/ic_baseline_help_outline_24"
