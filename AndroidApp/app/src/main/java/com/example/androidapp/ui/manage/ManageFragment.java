@@ -39,6 +39,7 @@ public class ManageFragment extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Press on the icon to toggle switch", Toast.LENGTH_LONG).show();
                 //TODO: dialog window here
+                manageViewModel.requestTerrariumData();
             }
         });
 

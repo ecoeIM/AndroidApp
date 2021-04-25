@@ -12,9 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidapp.Model.Terrarium;
 import com.example.androidapp.R;
 import com.example.androidapp.SettingsActivity;
 
@@ -26,6 +28,10 @@ public class MonitorFragment extends Fragment {
     private ImageButton imageButtonCo2;
     private ImageButton imageButtonLight;
     private ImageButton imageButtonSettings;
+    private TextView temperatureTextView;
+    private TextView humidityTextView;
+    private TextView co2TextView;
+    private TextView lightTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,6 +46,18 @@ public class MonitorFragment extends Fragment {
         imageButtonCo2 = root.findViewById(R.id.imageButtonCo2);
         imageButtonLight = root.findViewById(R.id.imageButtonLight);
         imageButtonSettings = root.findViewById(R.id.imageButtonSettings);
+        temperatureTextView = root.findViewById(R.id.temperatureTextView);
+        humidityTextView = root.findViewById(R.id.humidityTextView);
+        co2TextView = root.findViewById(R.id.co2TextView);
+        lightTextView = root.findViewById(R.id.lightTextView);
+
+        monitorViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
+            System.out.println(terrariumData.getTemperature());
+            this.temperatureTextView.setText(terrariumData.getTemperature() + "");
+            this.humidityTextView.setText(terrariumData.getHumidityLevel() + "");
+            this.co2TextView.setText(terrariumData.getCarbonDioxideLevel() + "");
+            this.lightTextView.setText(terrariumData.getNaturalLightLevel() + "");
+        });
 
 
         imageButtonSettings.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +71,11 @@ public class MonitorFragment extends Fragment {
         imageButtonTemperature.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
+        monitorViewModel.getTerrariumData();
+
         return root;
     }
-
 }

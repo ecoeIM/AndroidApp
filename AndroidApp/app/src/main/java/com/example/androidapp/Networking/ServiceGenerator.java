@@ -9,7 +9,7 @@ public class ServiceGenerator {
     public static TerrariumAPI getTerrariumAPI() {
         if (terrariumAPI == null) {
             terrariumAPI = new Retrofit.Builder()
-                    .baseUrl("https://10.0.2.2:5001/")
+                    .baseUrl("http://10.0.2.2:5000/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(TerrariumAPI.class);
