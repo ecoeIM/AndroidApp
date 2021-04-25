@@ -71,7 +71,7 @@ public class ManageFragment extends Fragment {
                 lightStatus.setText("OFF");
                 isLightOn = false;
             } else {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_on_24);
                 lightStatus.setText("ON");
                 isLightOn = true;
             }
@@ -81,7 +81,7 @@ public class ManageFragment extends Fragment {
                 ventStatus.setText("CLOSED");
                 isVentOpen = false;
             } else {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_24);
                 ventStatus.setText("OPEN");
                 isVentOpen = true;
             }
