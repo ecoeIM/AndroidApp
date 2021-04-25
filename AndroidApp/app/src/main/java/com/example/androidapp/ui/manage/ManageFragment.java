@@ -44,28 +44,13 @@ public class ManageFragment extends Fragment {
         ventStatus = root.findViewById(R.id.ventStatus);
         lightStatus = root.findViewById(R.id.lightStatus);
 
+
         imageViewLight.setOnClickListener(v -> {
-            if (isLightOn) {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
-                lightStatus.setText("OFF");
-                isLightOn = false;
-            } else {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
-                lightStatus.setText("ON");
-                isLightOn = true;
-            }
+            manageViewModel.requestChangeTerrariumLightState(!isLightOn);
         });
 
         imageViewVent.setOnClickListener(v -> {
-            if (isVentOpen) {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
-                ventStatus.setText("CLOSED");
-                isVentOpen = false;
-            } else {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
-                ventStatus.setText("OPEN");
-                isVentOpen = true;
-            }
+            manageViewModel.requestChangeTerrariumVentState(!isVentOpen);
         });
 
         imageButtonHelp.setOnClickListener(new View.OnClickListener() {
@@ -78,18 +63,55 @@ public class ManageFragment extends Fragment {
         });
 
 
-        
-      /*
-      *   manageViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
-            textView6.setText("test");
+        manageViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
+            this.isLightOn = terrariumData.isArtificialLightOn();
+            this.isVentOpen = terrariumData.isVentOn();
+            if (!isLightOn) {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                lightStatus.setText("OFF");
+                isLightOn = false;
+            } else {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                lightStatus.setText("ON");
+                isLightOn = true;
+            }
+
+            if (!isVentOpen) {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                ventStatus.setText("CLOSED");
+                isVentOpen = false;
+            } else {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                ventStatus.setText("OPEN");
+                isVentOpen = true;
+            }
         });
 
-        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                manageViewModel.requestTerrariumData();
+        manageViewModel.getTerrariumLightState().observe(getViewLifecycleOwner(), state -> {
+            if (!state) {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                lightStatus.setText("OFF");
+                isLightOn = false;
+            } else {
+                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                lightStatus.setText("ON");
+                isLightOn = true;
             }
-        });*/
+        });
+
+        manageViewModel.getTerrariumVentState().observe(getViewLifecycleOwner(), state -> {
+            if (!state) {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                ventStatus.setText("CLOSED");
+                isVentOpen = false;
+            } else {
+                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                ventStatus.setText("OPEN");
+                isVentOpen = true;
+            }
+        });
+
+        manageViewModel.requestTerrariumData();
 
         return root;
     }

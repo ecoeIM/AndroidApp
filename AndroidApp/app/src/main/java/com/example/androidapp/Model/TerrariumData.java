@@ -6,7 +6,7 @@ public class TerrariumData {
     private double carbonDioxideLevel;
     private double humidityLevel;
     private double naturalLightLevel;
-    //private boolean isVentOn;
+    private boolean isVentOn;
     private boolean isArtificialLightOn;
 
     public TerrariumData(int terrariumDataId, double temperature, double carbonDioxideLevel, double humidityLevel, double naturalLightLevel, boolean isVentOn, boolean isArtificialLightOn) {
@@ -15,7 +15,7 @@ public class TerrariumData {
         this.carbonDioxideLevel = carbonDioxideLevel;
         this.humidityLevel = humidityLevel;
         this.naturalLightLevel = naturalLightLevel;
-        //this.isVentOn = isVentOn;
+        this.isVentOn = isVentOn;
         this.isArtificialLightOn = isArtificialLightOn;
     }
 
@@ -62,13 +62,13 @@ public class TerrariumData {
         this.naturalLightLevel = naturalLightLevel;
     }
 
-    // boolean isVentOn() {
-       //return isVentOn;
-    //}
+     public boolean isVentOn() {
+       return isVentOn;
+    }
 
-    //public void setVentOn(boolean ventOn) {
-      //  isVentOn = ventOn;
-    //}
+    public void setVentOn(boolean ventOn) {
+        isVentOn = ventOn;
+    }
 
     public boolean isArtificialLightOn() {
         return isArtificialLightOn;

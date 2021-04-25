@@ -22,8 +22,24 @@ public class ManageViewModel extends ViewModel {
         return manageRepository.getTerrariumData();
     }
 
+    LiveData<Boolean> getTerrariumLightState() {
+        return manageRepository.getTerrariumLightState();
+    }
+
+    LiveData<Boolean> getTerrariumVentState() {
+        return manageRepository.getTerrariumVentState();
+    }
+
     public void requestTerrariumData() {
         manageRepository.requestTerrariumData();
+    }
+
+    public void requestChangeTerrariumLightState(boolean newState) {
+        manageRepository.requestChangeTerrariumLightState(newState);
+    }
+
+    public void requestChangeTerrariumVentState(boolean newState) {
+        manageRepository.requestChangeTerrariumVentState(newState);
     }
 
     public LiveData<String> getText() {

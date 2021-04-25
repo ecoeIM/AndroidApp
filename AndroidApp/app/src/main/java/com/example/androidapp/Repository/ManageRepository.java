@@ -17,9 +17,13 @@ import retrofit2.internal.EverythingIsNonNull;
 public class ManageRepository {
     private static ManageRepository instance;
     private final MutableLiveData<TerrariumData> terrariumData;
+    private final MutableLiveData<Boolean> terrariumLightState;
+    private final MutableLiveData<Boolean> terrariumVentState;
 
     private ManageRepository() {
         terrariumData = new MutableLiveData<>();
+        terrariumLightState = new MutableLiveData<>();
+        terrariumVentState = new MutableLiveData<>();
     }
 
     public static synchronized ManageRepository getInstance() {
@@ -30,6 +34,14 @@ public class ManageRepository {
 
     public LiveData<TerrariumData> getTerrariumData() {
         return terrariumData;
+    }
+
+    public MutableLiveData<Boolean> getTerrariumLightState() {
+        return terrariumLightState;
+    }
+
+    public MutableLiveData<Boolean> getTerrariumVentState() {
+        return terrariumVentState;
     }
 
     public void requestTerrariumData() {
@@ -53,4 +65,46 @@ public class ManageRepository {
             }
         });
     }
+
+    public void requestChangeTerrariumLightState(boolean newState) {
+        TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
+        Call<Boolean> call = terrariumAPI.changeLightStateOfTerrarium(newState, 1);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                System.out.println(response.code());
+                if (response.isSuccessful()) {
+                    terrariumLightState.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                System.out.println(t.toString());
+                Log.i("Retrofit", "Something went wrong :(");
+            }
+        });
+    }
+
+    public void requestChangeTerrariumVentState(boolean newState) {
+        TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
+        Call<Boolean> call = terrariumAPI.changeVentStateOFTerrarium(newState, 1);
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                System.out.println(response.code());
+                if (response.isSuccessful()) {
+                    terrariumVentState.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                System.out.println(t.toString());
+                Log.i("Retrofit", "Something went wrong :(");
+            }
+        });
+    }
+
+
 }
