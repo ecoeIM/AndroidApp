@@ -46,11 +46,11 @@ public class ManageFragment extends Fragment {
 
         imageViewLight.setOnClickListener(v -> {
             if (isLightOn) {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_off_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_off_24);
                 lightStatus.setText("OFF");
                 isLightOn = false;
             } else {
-                imageViewLight.setBackgroundResource(R.drawable.ic_baseline_flashlight_on_24);
+                imageViewLight.setImageResource(R.drawable.ic_baseline_flashlight_on_24);
                 lightStatus.setText("ON");
                 isLightOn = true;
             }
@@ -58,23 +58,20 @@ public class ManageFragment extends Fragment {
 
         imageViewVent.setOnClickListener(v -> {
             if (isVentOpen) {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_off_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_off_24);
                 ventStatus.setText("CLOSED");
                 isVentOpen = false;
             } else {
-                imageViewVent.setBackgroundResource(R.drawable.ic_baseline_web_asset_24);
+                imageViewVent.setImageResource(R.drawable.ic_baseline_web_asset_24);
                 ventStatus.setText("OPEN");
                 isVentOpen = true;
             }
         });
 
-        imageButtonHelp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "Press on the icon to toggle switch", Toast.LENGTH_LONG).show();
-                //TODO: dialog window here
-                manageViewModel.requestTerrariumData();
-            }
+        imageButtonHelp.setOnClickListener(v -> {
+            Toast.makeText(getContext(), "Press on the icon to toggle switch", Toast.LENGTH_LONG).show();
+            //TODO: dialog window here
+            manageViewModel.requestTerrariumData();
         });
 
 
