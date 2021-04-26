@@ -16,9 +16,11 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidapp.MainActivity;
 import com.example.androidapp.Model.Terrarium;
 import com.example.androidapp.R;
 import com.example.androidapp.SettingsActivity;
+import com.example.androidapp.TemperatureGraphActivity;
 
 public class MonitorFragment extends Fragment {
 
@@ -60,18 +62,14 @@ public class MonitorFragment extends Fragment {
         });
 
 
-        imageButtonSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toSettings = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(toSettings);
-            }
+        imageButtonSettings.setOnClickListener(v -> {
+            Intent toSettings = new Intent(getActivity(), SettingsActivity.class);
+            startActivity(toSettings);
         });
 
-        imageButtonTemperature.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
+        imageButtonTemperature.setOnClickListener(v -> {
+            Intent temperatureGraph = new Intent(getContext(), TemperatureGraphActivity.class);
+            startActivity(temperatureGraph);
         });
 
         monitorViewModel.getTerrariumData();
