@@ -16,6 +16,9 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.androidapp.CO2GraphActivity;
+import com.example.androidapp.HumidityGraphActivity;
+import com.example.androidapp.LightLevelGraphActivity;
 import com.example.androidapp.MainActivity;
 import com.example.androidapp.Model.Terrarium;
 import com.example.androidapp.R;
@@ -40,8 +43,6 @@ public class MonitorFragment extends Fragment {
         monitorViewModel =
                 new ViewModelProvider(this).get(MonitorViewModel.class);
         View root = inflater.inflate(R.layout.fragment_monitor, container, false);
-        final TextView textView = root.findViewById(R.id.text_monitor);
-        //.getText().observe(getViewLifecycleOwner(), textView::setText);
 
         imageButtonTemperature = root.findViewById(R.id.imageButtonTemperature);
         imageButtonHumidity = root.findViewById(R.id.imageButtonHumidity);
@@ -68,8 +69,23 @@ public class MonitorFragment extends Fragment {
         });
 
         imageButtonTemperature.setOnClickListener(v -> {
-            Intent temperatureGraph = new Intent(getContext(), TemperatureGraphActivity.class);
-            startActivity(temperatureGraph);
+            Intent toTemperatureGraph = new Intent(getContext(), TemperatureGraphActivity.class);
+            startActivity(toTemperatureGraph);
+        });
+
+        imageButtonHumidity.setOnClickListener(v -> {
+            Intent toHumidityGraph = new Intent(getContext(), HumidityGraphActivity.class);
+            startActivity(toHumidityGraph);
+        });
+
+        imageButtonCo2.setOnClickListener(v -> {
+            Intent toCo2Graph = new Intent(getContext(), CO2GraphActivity.class);
+            startActivity(toCo2Graph);
+        });
+
+        imageButtonLight.setOnClickListener(v -> {
+            Intent toLightGraph = new Intent(getContext(), LightLevelGraphActivity.class);
+            startActivity(toLightGraph);
         });
 
         monitorViewModel.getTerrariumData();

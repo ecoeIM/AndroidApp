@@ -38,8 +38,7 @@ public class ManageFragment extends Fragment {
         manageViewModel =
                 new ViewModelProvider(this).get(ManageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
-        final TextView textView = root.findViewById(R.id.text_manage);
-        //manageViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+
         imageButtonHelp = root.findViewById(R.id.imageButtonHelp);
         imageViewVent = root.findViewById(R.id.imageViewVent);
         imageViewLight = root.findViewById(R.id.imageViewLight);
