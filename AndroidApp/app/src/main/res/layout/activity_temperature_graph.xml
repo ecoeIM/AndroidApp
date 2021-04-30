@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".TemperatureGraphActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -35,5 +36,16 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/temperature_toolbar" />
+
+    <lecho.lib.hellocharts.view.LineChartView
+        android:id="@+id/temperature_graph"
+        android:layout_width="match_parent"
+        android:layout_height="1100px"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+    </lecho.lib.hellocharts.view.LineChartView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
