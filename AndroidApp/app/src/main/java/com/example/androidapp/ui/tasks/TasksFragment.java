@@ -21,7 +21,6 @@ import com.example.androidapp.SettingsActivity;
 public class TasksFragment extends Fragment {
 
     private TasksViewModel tasksViewModel;
-    private ImageView imageViewAnime;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -30,12 +29,6 @@ public class TasksFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_tasks, container, false);
         final TextView textView = root.findViewById(R.id.text_tasks);
         //tasksViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
-
-        imageViewAnime = root.findViewById(R.id.imageViewAnime);
-        imageViewAnime.setOnClickListener(v -> {
-            Toast toast = Toast.makeText(getContext(), "SHEEEEESH", Toast.LENGTH_LONG);
-            toast.show();
-        });
 
         return root;
     }
