@@ -1,13 +1,13 @@
-package com.example.androidapp.Repository;
+package com.example.androidapp.repository;
 
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.androidapp.Model.TerrariumData;
-import com.example.androidapp.Networking.ServiceGenerator;
-import com.example.androidapp.Networking.TerrariumAPI;
+import com.example.androidapp.model.TerrariumData;
+import com.example.androidapp.networking.ServiceGenerator;
+import com.example.androidapp.networking.TerrariumAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;

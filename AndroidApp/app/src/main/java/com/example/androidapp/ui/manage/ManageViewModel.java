@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.androidapp.Model.TerrariumData;
-import com.example.androidapp.Repository.ManageRepository;
+import com.example.androidapp.model.TerrariumData;
+import com.example.androidapp.repository.ManageRepository;
 
 public class ManageViewModel extends ViewModel {
 

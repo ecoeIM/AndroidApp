@@ -1,4 +1,4 @@
-package com.example.androidapp.Model;
+package com.example.androidapp.model;
 
 public class TerrariumData {
     private int id;

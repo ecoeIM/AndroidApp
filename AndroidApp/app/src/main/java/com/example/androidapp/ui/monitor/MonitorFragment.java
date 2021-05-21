@@ -5,22 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidapp.CO2GraphActivity;
 import com.example.androidapp.HumidityGraphActivity;
 import com.example.androidapp.LightLevelGraphActivity;
-import com.example.androidapp.MainActivity;
-import com.example.androidapp.Model.Terrarium;
 import com.example.androidapp.R;
 import com.example.androidapp.SettingsActivity;
 import com.example.androidapp.TemperatureGraphActivity;

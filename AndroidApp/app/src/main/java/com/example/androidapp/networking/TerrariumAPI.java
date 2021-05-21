@@ -1,7 +1,6 @@
-package com.example.androidapp.Networking;
+package com.example.androidapp.networking;
 
-import com.example.androidapp.Model.Terrarium;
-import com.example.androidapp.Model.TerrariumData;
+import com.example.androidapp.model.TerrariumData;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
