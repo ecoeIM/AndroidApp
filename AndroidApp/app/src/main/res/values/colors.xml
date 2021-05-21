@@ -10,5 +10,8 @@
     <color name="gray">#f3f3f3</color>
     <color name="gray_v2">#fafafa</color>
     <color name="gray_darker">#d1d1d1</color>
+    <color name="green_darker">#006666</color>
+    <color name="green_lighter">#008080</color>
+
 
 </resources>
