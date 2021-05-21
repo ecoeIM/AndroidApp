@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
         <activity
-            android:name=".LightLevelGraphActivity"
+            android:name=".ui.graphs.LightLevelGraphActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".HumidityGraphActivity"
+            android:name=".ui.graphs.HumidityGraphActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".CO2GraphActivity"
+            android:name=".ui.graphs.CO2GraphActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".TemperatureGraphActivity"
+            android:name=".ui.graphs.TemperatureGraphActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".SettingsActivity"

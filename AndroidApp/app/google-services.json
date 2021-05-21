@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "20222222869",
+    "firebase_url": "https://ecoe-65230-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "ecoe-65230",
+    "storage_bucket": "ecoe-65230.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20222222869:android:8fdc88c49849aab70e241c",
+        "android_client_info": {
+          "package_name": "com.example.androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20222222869-pcj0qr7bck5cjsdrjcjd9nacnppq0k5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC79ZG-M4UCko8JgDVCBvfJbUbkzelJpgE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20222222869-pcj0qr7bck5cjsdrjcjd9nacnppq0k5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

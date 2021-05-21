@@ -1,21 +1,23 @@
-package com.example.androidapp;
+package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-public class LightLevelGraphActivity extends AppCompatActivity {
+import com.example.androidapp.R;
+
+public class HumidityGraphActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_light_level_graph);
+        setContentView(R.layout.activity_humidity_graph);
 
         //Toolbar
-        toolbar = findViewById(R.id.light_toolbar);
+        toolbar = findViewById(R.id.humidity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

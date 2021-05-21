@@ -1,4 +1,4 @@
-package com.example.androidapp;
+package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+
+import com.example.androidapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

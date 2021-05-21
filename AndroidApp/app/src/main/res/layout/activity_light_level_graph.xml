@@ -5,7 +5,7 @@
     android:background="@color/gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LightLevelGraphActivity">
+    tools:context=".ui.graphs.LightLevelGraphActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/light_toolbar"

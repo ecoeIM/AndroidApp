@@ -1,24 +1,25 @@
-package com.example.androidapp;
+package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-public class CO2GraphActivity extends AppCompatActivity {
+import com.example.androidapp.R;
+
+public class LightLevelGraphActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_c_o2_graph);
+        setContentView(R.layout.activity_light_level_graph);
 
         //Toolbar
-        toolbar = findViewById(R.id.co2_toolbar);
+        toolbar = findViewById(R.id.light_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
     }
 
     //for correct back animation

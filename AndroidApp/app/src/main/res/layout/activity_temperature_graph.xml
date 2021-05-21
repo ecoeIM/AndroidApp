@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".TemperatureGraphActivity">
+    tools:context=".ui.graphs.TemperatureGraphActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/temperature_toolbar"

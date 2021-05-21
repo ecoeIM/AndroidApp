@@ -1,23 +1,26 @@
-package com.example.androidapp;
+package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-public class HumidityGraphActivity extends AppCompatActivity {
+import com.example.androidapp.R;
+
+public class CO2GraphActivity extends AppCompatActivity {
 
     Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_humidity_graph);
+        setContentView(R.layout.activity_c_o2_graph);
 
         //Toolbar
-        toolbar = findViewById(R.id.humidity_toolbar);
+        toolbar = findViewById(R.id.co2_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     //for correct back animation

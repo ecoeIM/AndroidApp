@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".CO2GraphActivity">
+    tools:context=".ui.graphs.CO2GraphActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/co2_toolbar"

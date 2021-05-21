@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.androidapp.CO2GraphActivity;
-import com.example.androidapp.HumidityGraphActivity;
-import com.example.androidapp.LightLevelGraphActivity;
+import com.example.androidapp.ui.graphs.CO2GraphActivity;
+import com.example.androidapp.ui.graphs.HumidityGraphActivity;
+import com.example.androidapp.ui.graphs.LightLevelGraphActivity;
 import com.example.androidapp.R;
 import com.example.androidapp.SettingsActivity;
-import com.example.androidapp.TemperatureGraphActivity;
+import com.example.androidapp.ui.graphs.TemperatureGraphActivity;
 
 public class MonitorFragment extends Fragment {
 
