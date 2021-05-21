@@ -18,5 +18,14 @@ public class CO2GraphActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.co2_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+
+    //for correct back animation
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        finish();
+        return true;
     }
 }
