@@ -12,6 +12,6 @@
     <color name="gray_darker">#d1d1d1</color>
     <color name="green_darker">#006b3f</color>
     <color name="green_lighter">#008e54</color>
-
-
+    <color name="textDarkPrimary">#DE000000</color> <!--DE for %87 opacity-->
+    <color name="textDarkSecondary">#8A000000</color> <!--8A for %54 opacity-->
 </resources>

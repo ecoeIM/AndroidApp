@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import com.example.androidapp.R;
+import com.example.androidapp.ui.signIn.SignInActivity;
 import com.example.androidapp.ui.signIn.SignInActivityViewModel;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -36,6 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
             });
             builder.setPositiveButton("Log out", (dialog, id) -> {
                 viewModel.signOut();
+                startActivity(new Intent(this, SignInActivity.class));
+                finish();
             });
             AlertDialog dialog = builder.create();
             dialog.show();
