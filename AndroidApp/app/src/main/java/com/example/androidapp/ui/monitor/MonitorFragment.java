@@ -16,8 +16,8 @@ import com.example.androidapp.ui.graphs.CO2GraphActivity;
 import com.example.androidapp.ui.graphs.HumidityGraphActivity;
 import com.example.androidapp.ui.graphs.LightLevelGraphActivity;
 import com.example.androidapp.R;
-import com.example.androidapp.SettingsActivity;
 import com.example.androidapp.ui.graphs.TemperatureGraphActivity;
+import com.example.androidapp.ui.settings.SettingsActivity;
 
 public class MonitorFragment extends Fragment {
 

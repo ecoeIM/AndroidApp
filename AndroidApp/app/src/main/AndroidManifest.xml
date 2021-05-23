@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_100px"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApp">
-        <activity android:name=".ui.signIn.SignInActivity"></activity>
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ui.signIn.SignInActivity" />
         <activity
             android:name=".ui.graphs.LightLevelGraphActivity"
             android:parentActivityName=".MainActivity" />
@@ -25,9 +28,6 @@
         <activity
             android:name=".ui.graphs.TemperatureGraphActivity"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
