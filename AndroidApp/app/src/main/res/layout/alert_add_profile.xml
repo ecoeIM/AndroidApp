@@ -18,8 +18,8 @@
             android:text="m"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber8"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber7" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_light_min"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_co2_min" />
 
         <TextView
             android:id="@+id/textView22"
@@ -30,8 +30,8 @@
             android:text="m"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber7"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber6" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_co2_min"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hum_min" />
 
         <TextView
             android:id="@+id/textView21"
@@ -42,11 +42,11 @@
             android:text="m"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber6"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_hum_min"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_temp_min" />
 
         <EditText
-            android:id="@+id/editTextNumber7"
+            android:id="@+id/edit_text_co2_min"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -54,10 +54,10 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/textView19"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber6" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hum_min" />
 
         <EditText
-            android:id="@+id/editTextNumber8"
+            android:id="@+id/edit_text_light_min"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -65,10 +65,10 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/textView20"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber7" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_co2_min" />
 
         <EditText
-            android:id="@+id/editTextNumber6"
+            android:id="@+id/edit_text_hum_min"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -76,7 +76,7 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toStartOf="@+id/textView18"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_temp_min" />
 
         <TextView
             android:id="@+id/textView20"
@@ -87,8 +87,8 @@
             android:text="M"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber5"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber4" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_light_max"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_co2_max" />
 
         <TextView
             android:id="@+id/textView19"
@@ -99,8 +99,8 @@
             android:text="M"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber4"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_co2_max"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hum_max" />
 
         <TextView
             android:id="@+id/textView18"
@@ -111,11 +111,11 @@
             android:text="M"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber3"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_hum_max"
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_temp_max" />
 
         <EditText
-            android:id="@+id/editTextNumber5"
+            android:id="@+id/edit_text_light_max"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -123,10 +123,10 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber4" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_co2_max" />
 
         <EditText
-            android:id="@+id/editTextNumber4"
+            android:id="@+id/edit_text_co2_max"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -134,10 +134,10 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber3" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hum_max" />
 
         <EditText
-            android:id="@+id/editTextNumber3"
+            android:id="@+id/edit_text_hum_max"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -145,7 +145,7 @@
             android:ems="10"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_temp_max" />
 
         <TextView
             android:id="@+id/textView17"
@@ -156,11 +156,11 @@
             android:text="m"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber2"
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_temp_min"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <EditText
-            android:id="@+id/editTextNumber2"
+            android:id="@+id/edit_text_temp_min"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -196,7 +196,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/edit_text_temp_max"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -228,7 +228,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber2" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_temp_min" />
 
         <TextView
             android:id="@+id/textView12"
@@ -240,7 +240,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber6" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hum_min" />
 
         <TextView
             android:id="@+id/textView15"
@@ -252,7 +252,7 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber7" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_co2_min" />
 
         <TextView
             android:id="@+id/textView16"
@@ -263,7 +263,7 @@
             android:text="M"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_temp_max"
             app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
         <TextView

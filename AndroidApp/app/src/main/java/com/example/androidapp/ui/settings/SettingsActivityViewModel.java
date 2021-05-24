@@ -16,5 +16,6 @@ public class SettingsActivityViewModel extends AndroidViewModel {
     }
 
     public void signOut() {
+        userRepository.signOut();
     }
 }

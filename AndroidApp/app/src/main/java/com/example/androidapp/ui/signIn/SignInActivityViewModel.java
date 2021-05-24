@@ -18,6 +18,10 @@ public class SignInActivityViewModel extends AndroidViewModel {
         userRepository = UserRepository.getInstance(app);
     }
 
+    public void loginWithGoogle(String idToken) {
+        userRepository.loginWithGoogle(idToken);
+    }
+
     public LiveData<FirebaseUser> getCurrentUser() {
         return userRepository.getCurrentUser();
     }

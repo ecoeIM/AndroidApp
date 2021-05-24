@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,14 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton imageButtonAddProfileHelp;
     private Spinner spinnerProfileSelector;
     private TextView textViewListIdLabelSettings;
-    private Button buttonAddProfile;
+    private ImageButton imageButtonAddProfile;
+    private ImageButton imageButtonProfileInfo;
+    private ImageButton imageButtonEditProfile;
+    private ImageButton imageButtonDeleteProfile;
+    private ImageButton imageButtonShare;
+    private ImageButton imageButtonAppInfo;
+    private Button buttonSendEmail;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,13 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         imageButtonAddProfileHelp = findViewById(R.id.image_button_add_profile_help);
         spinnerProfileSelector = findViewById(R.id.spinner_profile_selector);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
-        buttonAddProfile = findViewById(R.id.button_add_profile);
+        imageButtonAddProfile = findViewById(R.id.image_button_add_profile);
+        imageButtonProfileInfo = findViewById(R.id.image_button_profile_info);
+        imageButtonEditProfile = findViewById(R.id.image_button_edit_profile);
+        imageButtonDeleteProfile = findViewById(R.id.image_button_delete_profile);
+        imageButtonShare = findViewById(R.id.image_button_share);
+        imageButtonAppInfo = findViewById(R.id.image_button_app_info);
+        buttonSendEmail = findViewById(R.id.button_send_email);
 
         //TODO:set textView to real logged email textViewListIdLabelSettings
 
@@ -54,8 +68,42 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //share
+        imageButtonShare.setOnClickListener(v -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "https://github.com/ecoeIM/AndroidApp");
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
+        });
+
+        //app info
+        imageButtonAppInfo.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Version: 0.9");
+            builder.setMessage("SEP4, Group 4, Authors: Nicolai Pavliuc, Evgheni Demcenco, Ioana Grigore.");
+            builder.setPositiveButton("Close", (dialog, id) -> {
+                //close
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        //send email
+        buttonSendEmail.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            String[] arr = {"293101@via.dk"};
+            intent.putExtra(Intent.EXTRA_EMAIL, arr);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "ecoE Issue Report");
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        });
+
         //add profile
-        buttonAddProfile.setOnClickListener(v -> {
+        imageButtonAddProfile.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_add_profile, null);
@@ -63,6 +111,14 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             builder.setTitle("Add profile");
 
             EditText editTextProfileName = dialogView.findViewById(R.id.edit_text_profile_name);
+            EditText editTextTempMin = dialogView.findViewById(R.id.edit_text_temp_min);
+            EditText editTextTempMax = dialogView.findViewById(R.id.edit_text_temp_max);
+            EditText editTextHumidMin = dialogView.findViewById(R.id.edit_text_hum_min);
+            EditText editTextHumidMax = dialogView.findViewById(R.id.edit_text_hum_max);
+            EditText editTextCo2Min = dialogView.findViewById(R.id.edit_text_co2_min);
+            EditText editTextCo2Max = dialogView.findViewById(R.id.edit_text_co2_max);
+            EditText editTextLightMin = dialogView.findViewById(R.id.edit_text_light_min);
+            EditText editTextLightMax = dialogView.findViewById(R.id.edit_text_light_max);
 
             builder.setPositiveButton("Add", (dialog, which) -> {
                 //Do nothing here because we override this button later to change the close behaviour.
@@ -75,12 +131,203 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             dialog.show();
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                boolean isOk = true;
+                boolean isOk2 = true;
                 if (StringUtils.isEmpty(editTextProfileName.getText().toString())) {
                     editTextProfileName.setError("Required field");
-                } else {
-                    dialog.dismiss();
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMin.getText().toString())) {
+                    editTextTempMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMax.getText().toString())) {
+                    editTextTempMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMin.getText().toString())) {
+                    editTextHumidMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMax.getText().toString())) {
+                    editTextHumidMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Min.getText().toString())) {
+                    editTextCo2Min.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Max.getText().toString())) {
+                    editTextCo2Max.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMin.getText().toString())) {
+                    editTextLightMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMax.getText().toString())) {
+                    editTextLightMax.setError("Required field");
+                    isOk = false;
+                }
+                if (isOk) {
+                    if (Integer.parseInt(editTextTempMax.getText().toString()) <= Integer.parseInt(editTextTempMin.getText().toString())) {
+                        editTextTempMax.setText("");
+                        editTextTempMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextHumidMax.getText().toString()) <= Integer.parseInt(editTextHumidMin.getText().toString())) {
+                        editTextHumidMax.setText("");
+                        editTextHumidMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextCo2Max.getText().toString()) <= Integer.parseInt(editTextCo2Min.getText().toString())) {
+                        editTextCo2Max.setText("");
+                        editTextCo2Max.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextLightMax.getText().toString()) <= Integer.parseInt(editTextLightMin.getText().toString())) {
+                        editTextLightMax.setText("");
+                        editTextLightMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (isOk2)
+                        dialog.dismiss();
                 }
             });
+        });
+
+        //edit profile
+        imageButtonEditProfile.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.alert_add_profile, null);
+            builder.setView(dialogView);
+            builder.setTitle("Edit profile");
+
+            EditText editTextProfileName = dialogView.findViewById(R.id.edit_text_profile_name);
+            EditText editTextTempMin = dialogView.findViewById(R.id.edit_text_temp_min);
+            EditText editTextTempMax = dialogView.findViewById(R.id.edit_text_temp_max);
+            EditText editTextHumidMin = dialogView.findViewById(R.id.edit_text_hum_min);
+            EditText editTextHumidMax = dialogView.findViewById(R.id.edit_text_hum_max);
+            EditText editTextCo2Min = dialogView.findViewById(R.id.edit_text_co2_min);
+            EditText editTextCo2Max = dialogView.findViewById(R.id.edit_text_co2_max);
+            EditText editTextLightMin = dialogView.findViewById(R.id.edit_text_light_min);
+            EditText editTextLightMax = dialogView.findViewById(R.id.edit_text_light_max);
+
+            editTextTempMin.setText("00");
+            editTextTempMax.setText("99");
+            editTextHumidMin.setText("00");
+            editTextHumidMax.setText("99");
+            editTextCo2Min.setText("00");
+            editTextCo2Max.setText("99");
+            editTextLightMin.setText("00");
+            editTextLightMax.setText("99");
+
+            builder.setPositiveButton("Save", (dialog, which) -> {
+                //Do nothing here because we override this button later to change the close behaviour.
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                boolean isOk = true;
+                boolean isOk2 = true;
+                if (StringUtils.isEmpty(editTextProfileName.getText().toString())) {
+                    editTextProfileName.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMin.getText().toString())) {
+                    editTextTempMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMax.getText().toString())) {
+                    editTextTempMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMin.getText().toString())) {
+                    editTextHumidMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMax.getText().toString())) {
+                    editTextHumidMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Min.getText().toString())) {
+                    editTextCo2Min.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Max.getText().toString())) {
+                    editTextCo2Max.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMin.getText().toString())) {
+                    editTextLightMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMax.getText().toString())) {
+                    editTextLightMax.setError("Required field");
+                    isOk = false;
+                }
+                if (isOk) {
+                    if (Integer.parseInt(editTextTempMax.getText().toString()) <= Integer.parseInt(editTextTempMin.getText().toString())) {
+                        editTextTempMax.setText("");
+                        editTextTempMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextHumidMax.getText().toString()) <= Integer.parseInt(editTextHumidMin.getText().toString())) {
+                        editTextHumidMax.setText("");
+                        editTextHumidMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextCo2Max.getText().toString()) <= Integer.parseInt(editTextCo2Min.getText().toString())) {
+                        editTextCo2Max.setText("");
+                        editTextCo2Max.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextLightMax.getText().toString()) <= Integer.parseInt(editTextLightMin.getText().toString())) {
+                        editTextLightMax.setText("");
+                        editTextLightMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (isOk2)
+                        dialog.dismiss();
+                }
+            });
+        });
+
+        //delete profile
+        imageButtonDeleteProfile.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Do you really want to remove the selected profile? Another profile (if any) will not be automatically selected.");
+
+            builder.setPositiveButton("Delete", (dialog, id) -> {
+                //delete, and set profile to none
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        //profile info
+        imageButtonProfileInfo.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.alert_profile_info, null);
+            builder.setView(dialogView);
+            builder.setTitle("Profile name");
+
+            TextView textViewTemp = dialogView.findViewById(R.id.text_view_temp);
+            TextView textViewHum = dialogView.findViewById(R.id.text_view_hum);
+            TextView textViewCo2 = dialogView.findViewById(R.id.text_view_co2);
+            TextView textViewLight = dialogView.findViewById(R.id.text_view_light);
+
+            builder.setPositiveButton("Close", (dialog, id) -> {
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         //logOut
