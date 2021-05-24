@@ -34,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton imageButtonAddProfileHelp;
     private Spinner spinnerProfileSelector;
     private TextView textViewListIdLabelSettings;
-    private Button buttonAddProfile;
+    private ImageButton imageButtonAddProfile;
 
 
     @Override
@@ -46,7 +46,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         imageButtonAddProfileHelp = findViewById(R.id.image_button_add_profile_help);
         spinnerProfileSelector = findViewById(R.id.spinner_profile_selector);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
-        buttonAddProfile = findViewById(R.id.button_add_profile);
+        imageButtonAddProfile = findViewById(R.id.image_button_add_profile);
 
         //TODO:set textView to real logged email textViewListIdLabelSettings
 
@@ -56,7 +56,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //add profile
-        buttonAddProfile.setOnClickListener(v -> {
+        imageButtonAddProfile.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_add_profile, null);
