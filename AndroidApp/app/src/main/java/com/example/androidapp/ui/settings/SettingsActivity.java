@@ -35,6 +35,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private Spinner spinnerProfileSelector;
     private TextView textViewListIdLabelSettings;
     private ImageButton imageButtonAddProfile;
+    private ImageButton imageButtonProfileInfo;
+    private ImageButton imageButtonEditProfile;
+    private ImageButton imageButtonDeleteProfile;
 
 
     @Override
@@ -47,6 +50,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         spinnerProfileSelector = findViewById(R.id.spinner_profile_selector);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
         imageButtonAddProfile = findViewById(R.id.image_button_add_profile);
+        imageButtonProfileInfo = findViewById(R.id.image_button_profile_info);
+        imageButtonEditProfile = findViewById(R.id.image_button_edit_profile);
+        imageButtonDeleteProfile = findViewById(R.id.image_button_delete_profile);
 
         //TODO:set textView to real logged email textViewListIdLabelSettings
 
@@ -147,6 +153,25 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         dialog.dismiss();
                 }
             });
+        });
+
+        //profile info
+        imageButtonProfileInfo.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            LayoutInflater inflater = this.getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.alert_profile_info, null);
+            builder.setView(dialogView);
+            builder.setTitle("Profile name");
+
+            TextView textViewTemp = dialogView.findViewById(R.id.text_view_temp);
+            TextView textViewHum = dialogView.findViewById(R.id.text_view_hum);
+            TextView textViewCo2 = dialogView.findViewById(R.id.text_view_co2);
+            TextView textViewLight = dialogView.findViewById(R.id.text_view_light);
+
+            builder.setPositiveButton("Close", (dialog, id) -> {
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
 
         //logOut
