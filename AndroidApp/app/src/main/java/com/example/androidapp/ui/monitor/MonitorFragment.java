@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -31,6 +32,7 @@ public class MonitorFragment extends Fragment {
     private TextView humidityTextView;
     private TextView co2TextView;
     private TextView lightTextView;
+    private ImageButton imageButtonMonitorHelp;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class MonitorFragment extends Fragment {
         humidityTextView = root.findViewById(R.id.humidityTextView);
         co2TextView = root.findViewById(R.id.co2TextView);
         lightTextView = root.findViewById(R.id.lightTextView);
+        imageButtonMonitorHelp = root.findViewById(R.id.image_button_monitor_help);
 
         monitorViewModel.getTerrariumData().observe(getViewLifecycleOwner(), terrariumData -> {
             System.out.println(terrariumData.getTemperature());
@@ -82,8 +85,17 @@ public class MonitorFragment extends Fragment {
             startActivity(toLightGraph);
         });
 
-        monitorViewModel.getTerrariumData();
+        imageButtonMonitorHelp.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("On this screen, you can monitor the latest measurements received from the terrarium. Press the graph button next to each of the sections to view historical data for each measurement.");
+            builder.setPositiveButton("Close", (dialog, id) -> {
+                //close
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
 
+        monitorViewModel.getTerrariumData();
         return root;
     }
 }

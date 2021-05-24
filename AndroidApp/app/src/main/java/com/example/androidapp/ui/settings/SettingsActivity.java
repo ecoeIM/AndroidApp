@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private TextView textViewListIdLabelSettings;
     private Button buttonAddProfile;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +64,14 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             builder.setTitle("Add profile");
 
             EditText editTextProfileName = dialogView.findViewById(R.id.edit_text_profile_name);
+            EditText editTextTempMin = dialogView.findViewById(R.id.edit_text_temp_min);
+            EditText editTextTempMax = dialogView.findViewById(R.id.edit_text_temp_max);
+            EditText editTextHumidMin = dialogView.findViewById(R.id.edit_text_hum_min);
+            EditText editTextHumidMax = dialogView.findViewById(R.id.edit_text_hum_max);
+            EditText editTextCo2Min = dialogView.findViewById(R.id.edit_text_co2_min);
+            EditText editTextCo2Max = dialogView.findViewById(R.id.edit_text_co2_max);
+            EditText editTextLightMin = dialogView.findViewById(R.id.edit_text_light_min);
+            EditText editTextLightMax = dialogView.findViewById(R.id.edit_text_light_max);
 
             builder.setPositiveButton("Add", (dialog, which) -> {
                 //Do nothing here because we override this button later to change the close behaviour.
@@ -75,10 +84,67 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             dialog.show();
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                boolean isOk = true;
+                boolean isOk2 = true;
                 if (StringUtils.isEmpty(editTextProfileName.getText().toString())) {
                     editTextProfileName.setError("Required field");
-                } else {
-                    dialog.dismiss();
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMin.getText().toString())) {
+                    editTextTempMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextTempMax.getText().toString())) {
+                    editTextTempMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMin.getText().toString())) {
+                    editTextHumidMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextHumidMax.getText().toString())) {
+                    editTextHumidMax.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Min.getText().toString())) {
+                    editTextCo2Min.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextCo2Max.getText().toString())) {
+                    editTextCo2Max.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMin.getText().toString())) {
+                    editTextLightMin.setError("Required field");
+                    isOk = false;
+                }
+                if (StringUtils.isEmpty(editTextLightMax.getText().toString())) {
+                    editTextLightMax.setError("Required field");
+                    isOk = false;
+                }
+                if (isOk) {
+                    if (Integer.parseInt(editTextTempMax.getText().toString()) <= Integer.parseInt(editTextTempMin.getText().toString())) {
+                        editTextTempMax.setText("");
+                        editTextTempMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextHumidMax.getText().toString()) <= Integer.parseInt(editTextHumidMin.getText().toString())) {
+                        editTextHumidMax.setText("");
+                        editTextHumidMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextCo2Max.getText().toString()) <= Integer.parseInt(editTextCo2Min.getText().toString())) {
+                        editTextCo2Max.setText("");
+                        editTextCo2Max.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (Integer.parseInt(editTextLightMax.getText().toString()) <= Integer.parseInt(editTextLightMin.getText().toString())) {
+                        editTextLightMax.setText("");
+                        editTextLightMax.setError("M is lower/equal than m");
+                        isOk2 = false;
+                    }
+                    if (isOk2)
+                        dialog.dismiss();
                 }
             });
         });
