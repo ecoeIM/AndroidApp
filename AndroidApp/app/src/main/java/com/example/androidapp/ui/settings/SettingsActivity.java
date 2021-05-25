@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton imageButtonProfileInfo;
     private ImageButton imageButtonEditProfile;
     private ImageButton imageButtonDeleteProfile;
+    private ImageButton imageButtonShare;
+    private ImageButton imageButtonAppInfo;
+    private Button buttonSendEmail;
 
 
     @Override
@@ -53,6 +57,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         imageButtonProfileInfo = findViewById(R.id.image_button_profile_info);
         imageButtonEditProfile = findViewById(R.id.image_button_edit_profile);
         imageButtonDeleteProfile = findViewById(R.id.image_button_delete_profile);
+        imageButtonShare = findViewById(R.id.image_button_share);
+        imageButtonAppInfo = findViewById(R.id.image_button_app_info);
+        buttonSendEmail = findViewById(R.id.button_send_email);
 
         //TODO:set textView to real logged email textViewListIdLabelSettings
 
@@ -60,6 +67,40 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //share
+        imageButtonShare.setOnClickListener(v -> {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "https://github.com/ecoeIM/AndroidApp");
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, null);
+            startActivity(shareIntent);
+        });
+
+        //app info
+        imageButtonAppInfo.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Version: 0.9");
+            builder.setMessage("SEP4, Group 4, Authors: Nicolai Pavliuc, Evgheni Demcenco, Ioana Grigore.");
+            builder.setPositiveButton("Close", (dialog, id) -> {
+                //close
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        //send email
+        buttonSendEmail.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("*/*");
+            String[] arr = {"293101@via.dk"};
+            intent.putExtra(Intent.EXTRA_EMAIL, arr);
+            intent.putExtra(Intent.EXTRA_SUBJECT, "ecoE Issue Report");
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
+        });
 
         //add profile
         imageButtonAddProfile.setOnClickListener(v -> {
@@ -256,6 +297,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             });
         });
 
+        //delete profile
         imageButtonDeleteProfile.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Do you really want to remove the selected profile? Another profile (if any) will not be automatically selected.");
