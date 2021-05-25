@@ -25,7 +25,6 @@ import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 42;
-    private GoogleSignInClient mGoogleSignInClient;
     private SignInActivityViewModel viewModel;
 
     @Override
@@ -33,10 +32,20 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(SignInActivityViewModel.class);
         checkIfSignedIn();
-        initGoogleAuth();
-        signInWithGoogle();
-        setContentView(R.layout.activity_login);
-       // findViewById(R.id.login).setOnClickListener(v -> signInWithGoogle());
+        signIn();
+    }
+
+    public void signIn() {
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build());
+
+        Intent signInIntent = AuthUI.getInstance()
+                .createSignInIntentBuilder()
+                .setAvailableProviders(providers)
+                .setIsSmartLockEnabled(true)
+                .build();
+
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void checkIfSignedIn() {
@@ -52,38 +61,19 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-    private void initGoogleAuth() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
-
-    private void signInWithGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-
-            // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
-            if (requestCode == RC_SIGN_IN) {
-                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-                try {
-                    // Google Sign In was successful, authenticate with Firebase
-                    GoogleSignInAccount account = task.getResult(ApiException.class);
-                    viewModel.loginWithGoogle(account.getIdToken());
-                } catch (ApiException e) {
-                    // Google Sign In failed, update UI appropriately
-                    Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    e.printStackTrace();
-                }
-            }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            handleSignInRequest(resultCode);
         }
+    }
+
+    private void handleSignInRequest(int resultCode) {
+        if (resultCode == RESULT_OK)
+            goToMainActivity();
+        else
+            Toast.makeText(this, "SIGN IN CANCELLED", Toast.LENGTH_SHORT).show();
+    }
 
 }

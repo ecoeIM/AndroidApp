@@ -37,10 +37,6 @@ public class UserRepository {
         return currentUser;
     }
 
-    public void loginWithGoogle(String idToken) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
-        mAuth.signInWithCredential(credential).addOnFailureListener(e -> Toast.makeText(app.getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show());
-    }
 
     public void signOut() {
         AuthUI.getInstance()
