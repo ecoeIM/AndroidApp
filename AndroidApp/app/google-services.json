@@ -1,20 +1,28 @@
 {
   "project_info": {
-    "project_number": "565981378186",
-    "project_id": "ecoe-31013",
-    "storage_bucket": "ecoe-31013.appspot.com"
+    "project_number": "757387486693",
+    "project_id": "ecoe-314815",
+    "storage_bucket": "ecoe-314815.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:565981378186:android:7da4c651ccfa5f56c5df73",
+        "mobilesdk_app_id": "1:757387486693:android:689eefd6f17f897f54fb0c",
         "android_client_info": {
           "package_name": "com.example.androidapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "565981378186-jopgdsj9bvpok52abh3r3rlc10niu2sb.apps.googleusercontent.com",
+          "client_id": "757387486693-qnpv14h3geld16m39ni45e5s18n51e9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.androidapp",
+            "certificate_hash": "f9f0f4e0e018307435da6c91911c1267c95e1f82"
+          }
+        },
+        {
+          "client_id": "757387486693-tq00j5rpbhh7q4kqdimdopojkm3t4s4o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.androidapp",
@@ -22,20 +30,20 @@
           }
         },
         {
-          "client_id": "565981378186-tq1um4vb4eg4kepg4tpfpuop8e68knft.apps.googleusercontent.com",
+          "client_id": "757387486693-d1ddp4bvt406suldbmhn9qqpujrt1bkv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA_lOI0Uu5V32lLRLUGsrZSYmN8diKj9ls"
+          "current_key": "AIzaSyCboGgv6blPR0zeRYBp8rGejNJ3RqH0tFE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "565981378186-tq1um4vb4eg4kepg4tpfpuop8e68knft.apps.googleusercontent.com",
+              "client_id": "757387486693-d1ddp4bvt406suldbmhn9qqpujrt1bkv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
