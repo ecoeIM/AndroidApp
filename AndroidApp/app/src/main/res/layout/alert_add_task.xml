@@ -50,18 +50,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <DatePicker
+            android:id="@+id/date_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:calendarViewShown="false"
             android:datePickerMode="spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editTextNumber2">
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_minutes">
 
         </DatePicker>
 
         <CheckBox
-            android:id="@+id/checkBox"
+            android:id="@+id/check_box_toggle_light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
@@ -71,13 +72,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
         <CheckBox
-            android:id="@+id/checkBox2"
+            android:id="@+id/check_box_toggle_vent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:text="Toggle vent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/check_box_toggle_light" />
 
         <TextView
             android:id="@+id/textView36"
@@ -92,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
         <EditText
-            android:id="@+id/editTextNumber"
+            android:id="@+id/edit_text_hours"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -110,11 +111,11 @@
             android:text=":"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_hours"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
         <EditText
-            android:id="@+id/editTextNumber2"
+            android:id="@+id/edit_text_minutes"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
