@@ -57,7 +57,7 @@
             android:calendarViewShown="false"
             android:datePickerMode="spinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_text_minutes">
+            app:layout_constraintTop_toBottomOf="@+id/edit_text_hours">
 
         </DatePicker>
 
@@ -93,7 +93,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView35" />
 
         <EditText
-            android:id="@+id/edit_text_hours"
+            android:id="@+id/edit_text_minutes"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
@@ -111,11 +111,11 @@
             android:text=":"
             android:textColor="#000000"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/edit_text_hours"
+            app:layout_constraintEnd_toStartOf="@+id/edit_text_minutes"
             app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
         <EditText
-            android:id="@+id/edit_text_minutes"
+            android:id="@+id/edit_text_hours"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"

@@ -10,23 +10,33 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.adapter.TaskListAdapter;
+import com.example.androidapp.data.model.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.apache.commons.lang3.StringUtils;
 
-public class TasksFragment extends Fragment {
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+public class TasksFragment extends Fragment implements TaskListAdapter.OnListDeleteTaskClickListener {
 
     private TasksViewModel tasksViewModel;
     private FloatingActionButton fabCreateTask;
     private ImageButton imageButtonTasksHelp;
+    private RecyclerView recyclerView;
+    private TaskListAdapter adapter;
+    private ArrayList<Task> tasks;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +45,21 @@ public class TasksFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_tasks, container, false);
         fabCreateTask = root.findViewById(R.id.fab_create_task);
         imageButtonTasksHelp = root.findViewById(R.id.image_button_tasks_help);
+        recyclerView = root.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.hasFixedSize();
+
+        //adapter
+        tasks = new ArrayList<>();
+        Task t0 = new Task();
+        t0.name = "t0";
+        Task t1 = new Task();
+        t1.name = "t1";
+        tasks.add(t0);
+        tasks.add(t1);
+        adapter = new TaskListAdapter(tasks, this);
+        recyclerView.setAdapter(adapter);
+
 
         //help button
         imageButtonTasksHelp.setOnClickListener(v -> {
@@ -70,23 +95,71 @@ public class TasksFragment extends Fragment {
             builder.setNegativeButton("Cancel", (dialog, id) -> {
             });
 
-            builder.setNeutralButton("Delete", (dialog, id) -> {
-            });
-
             editTextTaskName.requestFocus();
             AlertDialog alertDialog = builder.create();
             alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN | WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             alertDialog.show();
 
             alertDialog.getButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
+                LocalDateTime dt = LocalDateTime.now();
+                LocalDateTime dtFromFields;
+                boolean isValidTimeSyntax = true;
+
                 if (StringUtils.isEmpty(editTextTaskName.getText().toString())) {
                     editTextTaskName.setError("Required field");
                 } else {
-                    alertDialog.dismiss();
+                    if (checkBoxToggleLight.isChecked() || checkBoxToggleVent.isChecked()) {
+                        if (StringUtils.isEmpty(editTextMinutes.getText().toString())) {
+                            editTextMinutes.setError("Required field");
+                        }
+                        if (StringUtils.isEmpty(editTextHours.getText().toString())) {
+                            editTextHours.setError("Required field");
+                        }
+                        if (!StringUtils.isEmpty(editTextMinutes.getText().toString()) && !StringUtils.isEmpty(editTextHours.getText().toString())) {
+                            if (Integer.parseInt(editTextMinutes.getText().toString()) > 59 || Integer.parseInt(editTextMinutes.getText().toString()) < 0) {
+                                editTextMinutes.setError("Invalid value");
+                                isValidTimeSyntax = false;
+                            }
+                            if (Integer.parseInt(editTextHours.getText().toString()) > 23 || Integer.parseInt(editTextHours.getText().toString()) < 0) {
+                                editTextHours.setError("Invalid value");
+                                isValidTimeSyntax = false;
+                            }
+                            if (isValidTimeSyntax) {
+                                dtFromFields = LocalDateTime.now()
+                                        .withMinute(Integer.parseInt(editTextMinutes.getText().toString()))
+                                        .withHour(Integer.parseInt(editTextHours.getText().toString()))
+                                        .withDayOfMonth(datePicker.getDayOfMonth())
+                                        .withMonth(datePicker.getMonth() + 1)
+                                        .withYear(datePicker.getYear());
+                                if (dtFromFields.isBefore(dt) || dtFromFields.isEqual(dt)) {
+                                    Snackbar snackbar = Snackbar
+                                            .make(view, "Past dates are not allowed", Snackbar.LENGTH_LONG);
+                                    System.out.println(dtFromFields.toString());
+                                    snackbar.show();
+                                } else {
+                                    Task newTask = new Task();
+                                    newTask.name = editTextTaskName.getText().toString();
+                                    newTask.toggleLight = checkBoxToggleLight.isChecked();
+                                    newTask.toggleVent = checkBoxToggleVent.isChecked();
+                                    newTask.dateTime = dtFromFields;
+                                    System.out.println(dtFromFields.toString());
+                                    alertDialog.dismiss();
+                                }
+                            }
+                        }
+                    } else {
+                        Task newTask = new Task();
+                        newTask.name = editTextTaskName.getText().toString();
+                        alertDialog.dismiss();
+                    }
                 }
             });
         });
         return root;
     }
 
+    @Override
+    public void onDeleteClick(int index) {
+        System.out.println(index);
+    }
 }
