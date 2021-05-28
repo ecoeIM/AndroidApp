@@ -151,7 +151,6 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                                 if (dtFromFields.isBefore(dt) || dtFromFields.isEqual(dt)) {
                                     Snackbar snackbar = Snackbar
                                             .make(view, "Past dates are not allowed", Snackbar.LENGTH_LONG);
-                                    System.out.println(dtFromFields.toString());
                                     snackbar.show();
                                 } else {
                                     Task newTask = new Task();
@@ -159,7 +158,8 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                                     newTask.toggleLight = checkBoxToggleLight.isChecked();
                                     newTask.toggleVent = checkBoxToggleVent.isChecked();
                                     newTask.dateTime = dtFromFields;
-                                    System.out.println(dtFromFields.toString());
+                                    tasks.add(newTask);
+                                    adapter.notifyDataSetChanged();
                                     alertDialog.dismiss();
                                 }
                             }
@@ -167,6 +167,8 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                     } else {
                         Task newTask = new Task();
                         newTask.name = editTextTaskName.getText().toString();
+                        tasks.add(newTask);
+                        adapter.notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
                 }
@@ -177,6 +179,16 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
 
     @Override
     public void onDeleteClick(int index) {
-        System.out.println(index);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
+        builder.setMessage("Do you really want to delete this task?");
+        builder.setPositiveButton("Delete", (dialog, id) -> {
+            tasks.remove(index);
+            adapter.notifyDataSetChanged();
+        });
+        builder.setNegativeButton("Cancel", (dialog, id) -> {
+            //close
+        });
+        androidx.appcompat.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
