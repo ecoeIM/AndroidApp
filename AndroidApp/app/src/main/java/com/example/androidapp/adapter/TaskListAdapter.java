@@ -16,6 +16,7 @@ import com.example.androidapp.data.model.Task;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHolder> {
@@ -92,24 +93,30 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
         boolean toggleVent = item.toggleVent; //2
         LocalDateTime dateTime = item.dateTime; //3
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = null;
+
         String description = "";
+        if (dateTime != null) {
+            formattedDateTime = dateTime.format(formatter);
+        }
 
         if (!toggleLight && !toggleVent && dateTime == null) { //000
             description = "";
         } else if (!toggleLight && !toggleVent && dateTime != null) { //001
-            description = "Scheduled for: " + dateTime.toString();
+            description = "Scheduled for: " + formattedDateTime;
         } else if (!toggleLight && toggleVent && dateTime == null) { //010
             description = "Actions: VENT";
         } else if (!toggleLight && toggleVent && dateTime != null) { //011
-            description = "Actions: VENT" + "   Scheduled for: " + dateTime.toString();
+            description = "Actions: VENT" + "   Scheduled for: " + formattedDateTime;
         } else if (toggleLight && !toggleVent && dateTime == null) { //100
             description = "Actions: LIGHT";
         } else if (toggleLight && toggleVent && dateTime == null) { //110
             description = "Actions: LIGHT, VENT";
         } else if (toggleLight && !toggleVent && dateTime != null) { //101
-            description = "Actions: LIGHT" + "   Scheduled for: " + dateTime.toString();
+            description = "Actions: LIGHT" + "   Scheduled for: " + formattedDateTime;
         } else if (toggleLight && toggleVent && dateTime != null) { //111
-            description = "Actions: LIGHT, VENT" + "   Scheduled for: " + dateTime.toString();
+            description = "Actions: LIGHT, VENT" + "   Scheduled for: " + formattedDateTime;
         }
         return description;
     }

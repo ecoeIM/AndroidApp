@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.androidapp.R;
+import com.example.androidapp.data.model.Profile;
 import com.example.androidapp.ui.signIn.SignInActivity;
 import com.example.androidapp.ui.signIn.SignInActivityViewModel;
 
@@ -34,7 +35,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private SettingsActivityViewModel viewModel;
     private ImageButton imageButtonAddProfileHelp;
     private Spinner spinnerProfileSelector;
-    private TextView textViewListIdLabelSettings;
     private ImageButton imageButtonAddProfile;
     private ImageButton imageButtonProfileInfo;
     private ImageButton imageButtonEditProfile;
@@ -52,7 +52,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         buttonLogOut = findViewById(R.id.button_log_out);
         imageButtonAddProfileHelp = findViewById(R.id.image_button_add_profile_help);
         spinnerProfileSelector = findViewById(R.id.spinner_profile_selector);
-        textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
         imageButtonAddProfile = findViewById(R.id.image_button_add_profile);
         imageButtonProfileInfo = findViewById(R.id.image_button_profile_info);
         imageButtonEditProfile = findViewById(R.id.image_button_edit_profile);
@@ -190,8 +189,19 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         editTextLightMax.setError("M is lower/equal than m");
                         isOk2 = false;
                     }
-                    if (isOk2)
+                    if (isOk2) {
+                        Profile newProfile = new Profile();
+                        newProfile.name = editTextProfileName.getText().toString();
+                        newProfile.minTemp = Integer.parseInt(editTextTempMin.getText().toString());
+                        newProfile.maxTemp = Integer.parseInt(editTextTempMax.getText().toString());
+                        newProfile.minHumid = Integer.parseInt(editTextHumidMin.getText().toString());
+                        newProfile.maxHumid = Integer.parseInt(editTextHumidMax.getText().toString());
+                        newProfile.minCo2 = Integer.parseInt(editTextCo2Min.getText().toString());
+                        newProfile.maxCo2 = Integer.parseInt(editTextCo2Max.getText().toString());
+                        newProfile.minLight = Integer.parseInt(editTextLightMin.getText().toString());
+                        newProfile.maxLight = Integer.parseInt(editTextLightMax.getText().toString());
                         dialog.dismiss();
+                    }
                 }
             });
         });
