@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,7 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
     private RecyclerView recyclerView;
     private TaskListAdapter adapter;
     private ArrayList<Task> tasks;
+    private TextView emptyView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,11 +47,12 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
         View root = inflater.inflate(R.layout.fragment_tasks, container, false);
         fabCreateTask = root.findViewById(R.id.fab_create_task);
         imageButtonTasksHelp = root.findViewById(R.id.image_button_tasks_help);
+        emptyView = root.findViewById(R.id.empty_view);
         recyclerView = root.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
 
-        //adapter
+
         tasks = new ArrayList<>();
         Task t0 = new Task();
         t0.name = "t0";
@@ -57,8 +60,22 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
         t1.name = "t1";
         tasks.add(t0);
         tasks.add(t1);
-        adapter = new TaskListAdapter(tasks, this);
-        recyclerView.setAdapter(adapter);
+
+        //adapter
+        if (tasks != null) {
+            if (!tasks.isEmpty()) {
+                recyclerView.setVisibility(View.VISIBLE);
+                emptyView.setVisibility(View.GONE);
+                adapter = new TaskListAdapter(tasks, this);
+                recyclerView.setAdapter(adapter);
+            } else {
+                recyclerView.setVisibility(View.GONE);
+                emptyView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
 
 
         //help button
