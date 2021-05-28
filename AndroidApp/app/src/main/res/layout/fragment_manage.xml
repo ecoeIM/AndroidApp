@@ -12,7 +12,7 @@
         tools:context=".ui.manage.ManageFragment">
 
         <TextView
-            android:id="@+id/manage_textView"
+            android:id="@+id/tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -33,7 +33,7 @@
             app:cardElevation="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manage_textView">
+            app:layout_constraintTop_toBottomOf="@+id/tv">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -145,9 +145,9 @@
         </LinearLayout>
 
         <ImageButton
-            android:id="@+id/imageButtonHelp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/image_button_manage_help"
+            android:layout_width="16dp"
+            android:layout_height="17dp"
             android:layout_marginTop="42dp"
             android:layout_marginEnd="24dp"
             android:background="@null"

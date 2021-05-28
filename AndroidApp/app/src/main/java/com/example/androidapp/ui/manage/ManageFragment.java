@@ -1,22 +1,16 @@
 package com.example.androidapp.ui.manage;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.androidapp.R;
@@ -39,7 +33,7 @@ public class ManageFragment extends Fragment {
                 new ViewModelProvider(this).get(ManageViewModel.class);
         View root = inflater.inflate(R.layout.fragment_manage, container, false);
 
-        imageButtonHelp = root.findViewById(R.id.imageButtonHelp);
+        imageButtonHelp = root.findViewById(R.id.image_button_manage_help);
         imageViewVent = root.findViewById(R.id.imageViewVent);
         imageViewLight = root.findViewById(R.id.imageViewLight);
         ventStatus = root.findViewById(R.id.ventStatus);
