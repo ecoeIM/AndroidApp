@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.androidapp.MainActivity;
 import com.example.androidapp.R;
+import com.example.androidapp.ui.signUp.SignUpActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +22,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
+
 //TODO: make sign in and signup textview butttons underlined
 public class SignInActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 42;
@@ -32,33 +37,29 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(SignInActivityViewModel.class);
         setContentView(R.layout.activity_login);
-        editPassword = findViewById(R.id.edit_text_password_sign_up);
-        editEmail = findViewById(R.id.edit_text_email_sign_up);
-        findViewById(R.id.button_sign_in).setOnClickListener(v -> {
-            viewModel.getMauth().signInWithEmailAndPassword(editEmail.getText().toString(),editPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
-                    System.out.println("Aboboa");
+        findViewById(R.id.sign_up_label).setOnClickListener(v -> {
+            startActivity(new Intent(getBaseContext(), SignUpActivity.class));
+            finish();
+        });
+        editPassword = findViewById(R.id.edit_text_password_sign_in);
+        editEmail = findViewById(R.id.edit_text_email_sign_in);
+        findViewById(R.id.login).setOnClickListener(v -> {
+            viewModel.getMauth().signInWithEmailAndPassword(editEmail.getText().toString(),editPassword.getText().toString()).addOnCompleteListener(task -> {
+                if (task.isSuccessful())
+                {
+                    Log.d(TAG, "createUserWithEmail:success");
+                }
+                else
+                {
+                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                    Toast.makeText(this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                 }
             });
 
         });
         checkIfSignedIn();
     }
-
-    public void signIn() {
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build());
-
-        Intent signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setIsSmartLockEnabled(true)
-                .build();
-
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
     private void checkIfSignedIn() {
         viewModel.getCurrentUser().observe(this, user -> {
             if (user != null)

@@ -21,6 +21,9 @@
             android:name=".ui.signIn.SignInActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ui.signUp.SignUpActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ui.graphs.LightLevelGraphActivity"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
