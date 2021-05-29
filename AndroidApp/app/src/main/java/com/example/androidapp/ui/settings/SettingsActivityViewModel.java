@@ -18,4 +18,8 @@ public class SettingsActivityViewModel extends AndroidViewModel {
     public void signOut() {
         userRepository.signOut();
     }
+
+    public String getCurrentEmail() {
+        return userRepository.getCurrentUser().getValue().getEmail();
+    }
 }

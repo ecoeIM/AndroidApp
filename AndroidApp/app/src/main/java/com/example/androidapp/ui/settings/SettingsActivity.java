@@ -42,6 +42,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton imageButtonShare;
     private ImageButton imageButtonAppInfo;
     private Button buttonSendEmail;
+    private TextView textViewListIdLabelSettings;
 
 
     @Override
@@ -59,8 +60,10 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         imageButtonShare = findViewById(R.id.image_button_share);
         imageButtonAppInfo = findViewById(R.id.image_button_app_info);
         buttonSendEmail = findViewById(R.id.button_send_email);
+        textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
 
         //TODO:set textView to real logged email textViewListIdLabelSettings
+        textViewListIdLabelSettings.setText(viewModel.getCurrentEmail());
 
         //Toolbar
         toolbar = findViewById(R.id.settings_toolbar);

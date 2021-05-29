@@ -1,9 +1,11 @@
 package com.example.androidapp.ui.signUp;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -13,7 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.androidapp.MainActivity;
 import com.example.androidapp.R;
 import com.example.androidapp.ui.signIn.SignInActivity;
+import com.google.android.material.snackbar.Snackbar;
 
+
+import org.apache.commons.lang3.StringUtils;
 
 import static android.content.ContentValues.TAG;
 
@@ -23,41 +28,65 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText editPassword;
     private EditText editPasswordRepeat;
     private EditText editEmail;
+    private TextView logInLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(SignUpActivityViewModel.class);
         setContentView(R.layout.activity_signup);
-        findViewById(R.id.log_in_label).setOnClickListener(v -> {
-            startActivity(new Intent(getBaseContext(), SignInActivity.class));
-            finish();
-        });
+
         editPassword = findViewById(R.id.edit_text_password_sign_up);
         editEmail = findViewById(R.id.edit_text_email_sign_up);
         editPasswordRepeat = findViewById(R.id.editTextTextPasswordRepeat);
+        logInLabel = findViewById(R.id.log_in_label);
+        viewModel = new ViewModelProvider(this).get(SignUpActivityViewModel.class);
+
+        logInLabel.setPaintFlags(logInLabel.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        logInLabel.setOnClickListener(v -> {
+            startActivity(new Intent(getBaseContext(), SignInActivity.class));
+            finish();
+        });
 
         findViewById(R.id.login).setOnClickListener(v -> {
-            if (editPassword.getText().length() >= 6) {
-                if (editPassword.getText().toString().equals(editPasswordRepeat.getText().toString()))
-                    viewModel.getMAuth().createUserWithEmailAndPassword(editEmail.getText().toString(), editPassword.getText().toString()).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "createUserWithEmail:success");
-                        } else {
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            reset();
-                        }
-                    });
-                else {
-                    Toast.makeText(this, "Passwords are not matching", Toast.LENGTH_SHORT).show();
-                    reset();
-                }
+            boolean isNotEmpty = true;
+            if (StringUtils.isEmpty(editEmail.getText().toString())) {
+                editEmail.setError("Required field");
+                isNotEmpty = false;
             }
-            else {
-                Toast.makeText(this, "Passwords must be minimum length of 6", Toast.LENGTH_SHORT).show();
-                reset();
+            if (StringUtils.isEmpty(editPassword.getText().toString())) {
+                editPassword.setError("Required field");
+                isNotEmpty = false;
+            }
+            if (StringUtils.isEmpty(editPasswordRepeat.getText().toString())) {
+                editPasswordRepeat.setError("Required field");
+                isNotEmpty = false;
+            }
+            if (isNotEmpty) {
+                if (editPassword.getText().toString().length() >= 6) {
+                    if (editPassword.getText().toString().equals(editPasswordRepeat.getText().toString())) {
+                        viewModel.getMAuth().createUserWithEmailAndPassword(editEmail.getText().toString(), editPassword.getText().toString()).addOnCompleteListener(task -> {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "createUserWithEmail:success");
+                            } else {
+                                Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                reset();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                                builder.setMessage("Authentication failed.");
+                                builder.setPositiveButton("Close", (dialog, id) -> {
+                                    //close
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        });
+                    } else {
+                        editPassword.setError("Passwords do not match");
+                        editPasswordRepeat.setError("Passwords do not match");
+                    }
+                } else {
+                    editPassword.setError("At least 6 characters long");
+                    editPasswordRepeat.setError("At least 6 characters long");
+                }
             }
         });
 
@@ -101,8 +130,7 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "SIGN IN CANCELLED", Toast.LENGTH_SHORT).show();
     }
 
-    private void reset()
-    {
+    private void reset() {
         this.editEmail.setText("");
         this.editPassword.setText("");
         this.editPasswordRepeat.setText("");
