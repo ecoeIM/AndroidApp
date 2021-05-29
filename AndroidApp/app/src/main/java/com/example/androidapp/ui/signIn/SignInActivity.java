@@ -1,6 +1,7 @@
 package com.example.androidapp.ui.signIn;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -54,9 +55,19 @@ public class SignInActivity extends AppCompatActivity {
                     Log.w(TAG, "createUserWithEmail:failure", task.getException());
                     Toast.makeText(this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();
+                    reset();
                 }
             });
 
+        });
+        findViewById(R.id.image_button_help_sign_in).setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("You must sign in to use the system, if you don't have EcoE account just press sign up button.");
+            builder.setPositiveButton("Close", (dialog, id) -> {
+                //close
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
         checkIfSignedIn();
     }
@@ -86,6 +97,12 @@ public class SignInActivity extends AppCompatActivity {
             goToMainActivity();
         else
             Toast.makeText(this, "SIGN IN CANCELLED", Toast.LENGTH_SHORT).show();
+    }
+
+    private void reset()
+    {
+        this.editPassword.setText("");
+        this.editEmail.setText("");
     }
 
 }

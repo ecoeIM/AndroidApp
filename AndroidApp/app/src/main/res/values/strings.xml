@@ -32,4 +32,8 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="show_data_for">Show data for:</string>
+    <string name="sign_up">Sign up</string>
+    <string name="_2021_ecoe">© 2021 ecoE</string>
+    <string name="to_get_access_to_your_terrarium_you_will_have_to_enter_your_ecoe_account_first">To get access to your terrarium, you will have to enter your ecoE account first.</string>
+    <string name="don_t_have_an_ecoe_account">Don\'t have an ecoE account?</string>
 </resources>
