@@ -62,7 +62,7 @@ public class CO2GraphActivity extends AppCompatActivity implements AdapterView.O
         values.add(new PointValue(4, 2));
 
         //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.GREEN).setCubic(true);
+        Line line = new Line(values).setColor(Color.parseColor("#008e54")).setCubic(true);
         List<Line> lines = new ArrayList<>();
         lines.add(line);
 
