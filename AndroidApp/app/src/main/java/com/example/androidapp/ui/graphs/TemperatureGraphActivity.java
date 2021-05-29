@@ -63,7 +63,7 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
         values.add(new PointValue(4, 7));
 
         //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
+        Line line = new Line(values).setColor(Color.GREEN).setCubic(true);
         List<Line> lines = new ArrayList<>();
         lines.add(line);
 
