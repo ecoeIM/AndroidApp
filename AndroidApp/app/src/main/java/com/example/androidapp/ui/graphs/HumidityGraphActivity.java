@@ -62,7 +62,7 @@ public class HumidityGraphActivity extends AppCompatActivity implements AdapterV
         values.add(new PointValue(4, 3));
 
         //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.BLUE).setCubic(true);
+        Line line = new Line(values).setColor(Color.GREEN).setCubic(true);
         List<Line> lines = new ArrayList<>();
         lines.add(line);
 
