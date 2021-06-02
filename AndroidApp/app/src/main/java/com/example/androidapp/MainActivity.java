@@ -18,6 +18,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+
+//TODO:notifications
+//TODO:other languages
 public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
     private ConstraintLayout view;
