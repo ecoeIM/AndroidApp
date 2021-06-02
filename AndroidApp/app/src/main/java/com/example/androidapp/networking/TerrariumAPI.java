@@ -2,9 +2,15 @@ package com.example.androidapp.networking;
 
 import androidx.room.Delete;
 
+import com.example.androidapp.data.model.Co2Record;
+import com.example.androidapp.data.model.HumidityRecord;
+import com.example.androidapp.data.model.LightRecord;
 import com.example.androidapp.data.model.Task;
+import com.example.androidapp.data.model.TemperatureRecord;
 import com.example.androidapp.model.Profile;
 import com.example.androidapp.model.TerrariumData;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -45,16 +51,16 @@ public interface TerrariumAPI {
     Call<Double> getLastLight();
 
     @GET("api/terrarium/temperature?period=all")
-    Call<Double> getAllTemperature();
+    Call<List<TemperatureRecord>> getAllTemperature();
 
     @GET("api/terrarium/humidity?period=all")
-    Call<Double> getAllHumidity();
+    Call<List<HumidityRecord>> getAllHumidity();
 
     @GET("api/terrarium/co2?period=all")
-    Call<Double> getAllCo2();
+    Call<List<Co2Record>> getAllCo2();
 
     @GET("api/terrarium/light?period=all")
-    Call<Double> getAllLight();
+    Call<List<LightRecord>> getAllLight();
 
     @GET("api/terrarium/artLight/state")
     Call<Boolean> getArtificialLightState();
@@ -78,20 +84,20 @@ public interface TerrariumAPI {
     void deleteTask(@Path("id") int id);
 
     @GET("api/terrarium/profiles")
-    Call<Profile> getProfiles();
+    Call<Profile> getProfiles(@Query("userId") String id);
 
     @POST("api/terrarium/profiles")
-    Call<Integer> addProfile(@Body Profile profile);
+    Call<Integer> addProfile(@Body Profile profile, @Query("userId") String id);
 
     @PATCH("api/terrarium/profiles")
-    void updateProfile(@Body Profile profile);
+    void updateProfile(@Body Profile profile, @Query("userId") String id);
 
     @DELETE("api/terrarium/profiles/{id}")
-    void deleteProfile(@Path("id") int id);
+    void deleteProfile(@Path("id") int id, @Query("userId") String userId);
 
     @GET("api/terrarium/profiles/active")
-    Call<Profile> getActiveProfile();
+    Call<Profile> getActiveProfile(@Query("userId") String id);
 
     @PATCH("api/terrarium/profiles/active")
-    void setActiveProfile(@Body Profile profile);
+    void setActiveProfile(@Body Profile profile, @Query("userId") String id);
 }
