@@ -9,12 +9,9 @@ import com.example.androidapp.repository.ManageRepository;
 
 public class ManageViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
     private ManageRepository manageRepository;
 
     public ManageViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is manage fragment");
         manageRepository = ManageRepository.getInstance();
     }
 
@@ -40,9 +37,5 @@ public class ManageViewModel extends ViewModel {
 
     public void requestChangeTerrariumVentState(boolean newState) {
         manageRepository.requestChangeTerrariumVentState(newState);
-    }
-
-    public LiveData<String> getText() {
-        return mText;
     }
 }
