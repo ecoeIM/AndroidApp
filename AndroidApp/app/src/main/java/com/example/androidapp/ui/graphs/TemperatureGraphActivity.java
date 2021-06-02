@@ -2,6 +2,7 @@ package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,11 +27,13 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
     private Toolbar toolbar;
     private Spinner temperature_spinner;
     private LineChartView lineChartView;
+    private TemperatureGraphActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temperature_graph);
+        viewModel = new ViewModelProvider(this).get(TemperatureGraphActivityViewModel.class);
 
         //Toolbar
         toolbar = findViewById(R.id.temperature_toolbar);
@@ -82,7 +85,21 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (position == 0) {
 
+        } else if (position == 1) {
+
+        } else if (position == 2) {
+
+        } else if (position == 3) {
+
+        } else if (position == 4) {
+
+        } else if (position == 5) {
+
+        } else if (position == 6) {
+
+        }
     }
 
     @Override
