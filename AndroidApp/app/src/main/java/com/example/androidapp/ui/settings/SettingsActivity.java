@@ -44,7 +44,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private Button buttonSendEmail;
     private TextView textViewListIdLabelSettings;
     private List<Profile> scopedProfiles;
+    private boolean userIsInteracting;
     private int activeProfileId;
+    ArrayAdapter<String> dataAdapter;
 
 
     @Override
@@ -66,21 +68,22 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
         textViewListIdLabelSettings.setText(viewModel.getCurrentEmail());
         scopedProfiles = new ArrayList<>();
+        activeProfileId = -1;
 
         imageButtonProfileInfo.setEnabled(false);
         imageButtonDeleteProfile.setEnabled(false);
         imageButtonEditProfile.setEnabled(false);
+
+        viewModel.getActiveProfile();
+        viewModel.getProfiles();
 
         //Toolbar
         toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //observers
-        viewModel.getActiveProfile().observe(this, profileId -> {
-            activeProfileId = profileId.intValue();
-        });
 
+        //observers
         viewModel.getProfiles().observe(this, profiles -> {
             scopedProfiles = profiles;
 
@@ -88,11 +91,34 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             spinnerProfileSelector.setOnItemSelectedListener(this);
             List<String> spinnerOptions = new ArrayList<>();
             for (int i = 0; i < scopedProfiles.size(); i++) {
-                spinnerOptions.add(scopedProfiles.get(i).name);
+                spinnerOptions.add(scopedProfiles.get(i).profileName);
             }
-            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
+            dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
             dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerProfileSelector.setAdapter(dataAdapter);
+            if (activeProfileId != -1) {
+                System.out.println(activeProfileId);
+                for (int i = 0; i < scopedProfiles.size(); i++) {
+                    if (scopedProfiles.get(i).id == activeProfileId) {
+                        spinnerProfileSelector.setSelection(i);
+                        break;
+                    }
+                }
+            }
+
+            viewModel.getActiveProfile().observe(this, profileId -> {
+                activeProfileId = profileId;
+                if (activeProfileId != -1) {
+                    System.out.println(activeProfileId);
+                    for (int i = 0; i < scopedProfiles.size(); i++) {
+                        if (scopedProfiles.get(i).id == activeProfileId) {
+                            spinnerProfileSelector.setSelection(i);
+                            break;
+                        }
+                    }
+                }
+            });
+
 
             if (!scopedProfiles.isEmpty()) {
                 imageButtonProfileInfo.setEnabled(true);
@@ -229,7 +255,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                     }
                     if (isOk2) {
                         Profile newProfile = new Profile();
-                        newProfile.name = editTextProfileName.getText().toString();
+                        newProfile.profileName = editTextProfileName.getText().toString();
                         newProfile.minTemp = Integer.parseInt(editTextTempMin.getText().toString());
                         newProfile.maxTemp = Integer.parseInt(editTextTempMax.getText().toString());
                         newProfile.minHumid = Integer.parseInt(editTextHumidMin.getText().toString());
@@ -238,6 +264,9 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         newProfile.maxCo2 = Integer.parseInt(editTextCo2Max.getText().toString());
                         newProfile.minLight = Integer.parseInt(editTextLightMin.getText().toString());
                         newProfile.maxLight = Integer.parseInt(editTextLightMax.getText().toString());
+                        newProfile.terrariumId = 1;
+                        viewModel.addProfile(newProfile);
+                        //dataAdapter.notifyDataSetChanged();
                         dialog.dismiss();
                     }
                 }
@@ -262,14 +291,23 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             EditText editTextLightMin = dialogView.findViewById(R.id.edit_text_light_min);
             EditText editTextLightMax = dialogView.findViewById(R.id.edit_text_light_max);
 
-            editTextTempMin.setText("00");
-            editTextTempMax.setText("99");
-            editTextHumidMin.setText("00");
-            editTextHumidMax.setText("99");
-            editTextCo2Min.setText("00");
-            editTextCo2Max.setText("99");
-            editTextLightMin.setText("00");
-            editTextLightMax.setText("99");
+            Profile selectedProfile = null;
+            for (int i = 0; i < scopedProfiles.size(); i++) {
+                if (scopedProfiles.get(i).id == activeProfileId) {
+                    selectedProfile = scopedProfiles.get(i);
+                }
+            }
+
+            editTextProfileName.setText(selectedProfile.profileName);
+            editTextTempMin.setText(Integer.toString(selectedProfile.minTemp));
+            editTextTempMax.setText(Integer.toString(selectedProfile.maxTemp));
+            editTextHumidMin.setText(Integer.toString(selectedProfile.minHumid));
+            editTextHumidMax.setText(Integer.toString(selectedProfile.maxHumid));
+            editTextCo2Min.setText(Integer.toString(selectedProfile.minCo2));
+            editTextCo2Max.setText(Integer.toString(selectedProfile.maxCo2));
+            editTextLightMin.setText(Integer.toString(selectedProfile.minLight));
+            editTextLightMax.setText(Integer.toString(selectedProfile.maxLight));
+
 
             builder.setPositiveButton("Save", (dialog, which) -> {
                 //Do nothing here because we override this button later to change the close behaviour.
@@ -279,6 +317,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
             AlertDialog dialog = builder.create();
             dialog.show();
+            Profile finalSelectedProfile = selectedProfile;
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v1 -> {
                 boolean isOk = true;
                 boolean isOk2 = true;
@@ -339,8 +378,21 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
                         editTextLightMax.setError("M is lower/equal than m");
                         isOk2 = false;
                     }
-                    if (isOk2)
+                    if (isOk2) {
+                        finalSelectedProfile.profileName = editTextProfileName.getText().toString();
+                        finalSelectedProfile.minTemp = Integer.parseInt(editTextTempMin.getText().toString());
+                        finalSelectedProfile.maxTemp = Integer.parseInt(editTextTempMax.getText().toString());
+                        finalSelectedProfile.minHumid = Integer.parseInt(editTextHumidMin.getText().toString());
+                        finalSelectedProfile.maxHumid = Integer.parseInt(editTextHumidMax.getText().toString());
+                        finalSelectedProfile.minCo2 = Integer.parseInt(editTextCo2Min.getText().toString());
+                        finalSelectedProfile.maxCo2 = Integer.parseInt(editTextCo2Max.getText().toString());
+                        finalSelectedProfile.minLight = Integer.parseInt(editTextLightMin.getText().toString());
+                        finalSelectedProfile.maxLight = Integer.parseInt(editTextLightMax.getText().toString());
+                        System.out.println(finalSelectedProfile.minTemp);
+                        System.out.println(finalSelectedProfile.maxTemp);
+                        viewModel.updateProfile(finalSelectedProfile);
                         dialog.dismiss();
+                    }
                 }
             });
         });
@@ -352,6 +404,7 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
 
             builder.setPositiveButton("Delete", (dialog, id) -> {
                 //delete, and set profile to none
+                viewModel.deleteProfile(activeProfileId);
             });
             builder.setNegativeButton("Cancel", (dialog, id) -> {
             });
@@ -365,12 +418,27 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             LayoutInflater inflater = this.getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.alert_profile_info, null);
             builder.setView(dialogView);
-            builder.setTitle("Profile name");
+
+
+            Profile selectedProfile = null;
+            for (int i = 0; i < scopedProfiles.size(); i++) {
+                if (scopedProfiles.get(i).id == activeProfileId) {
+                    selectedProfile = scopedProfiles.get(i);
+                }
+            }
 
             TextView textViewTemp = dialogView.findViewById(R.id.text_view_temp);
             TextView textViewHum = dialogView.findViewById(R.id.text_view_hum);
             TextView textViewCo2 = dialogView.findViewById(R.id.text_view_co2);
             TextView textViewLight = dialogView.findViewById(R.id.text_view_light);
+
+            if (selectedProfile != null) {
+                builder.setTitle(selectedProfile.profileName);
+                textViewTemp.setText("m:" + selectedProfile.minTemp + " M:" + selectedProfile.maxTemp);
+                textViewHum.setText("m:" + selectedProfile.minHumid + " M:" + selectedProfile.maxHumid);
+                textViewCo2.setText("m:" + selectedProfile.minCo2 + " M:" + selectedProfile.maxCo2);
+                textViewLight.setText("m:" + selectedProfile.minLight + " M:" + selectedProfile.maxLight);
+            }
 
             builder.setPositiveButton("Close", (dialog, id) -> {
             });
@@ -414,8 +482,17 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        userIsInteracting = true;
+    }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (userIsInteracting) {
+            viewModel.setActiveProfile(scopedProfiles.get(position).id);
+            userIsInteracting = false;
+        }
     }
 
     @Override

@@ -23,6 +23,7 @@ public class ProfileRepository {
 
     private ProfileRepository() {
         this.profiles = new MutableLiveData<>();
+        this.activeProfileId = new MutableLiveData<>();
     }
 
     public static synchronized ProfileRepository getInstance() {
@@ -63,19 +64,20 @@ public class ProfileRepository {
 
     public void addProfile(Profile newProfile) {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<Void> call = terrariumAPI.addProfile(newProfile);
-        call.enqueue(new Callback<Void>() {
+        Call<Profile> call = terrariumAPI.addProfile(newProfile);
+        call.enqueue(new Callback<Profile>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
                 System.out.println(response.code());
                 if (response.isSuccessful()) {
-                    requestProfiles();
+                    Profile profile = (Profile) response.body();
+                    setActiveProfile(profile.id);
                     System.out.println("Success");
                 }
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Profile> call, Throwable t) {
                 System.out.println(t.toString());
                 Log.i("Retrofit", "Something went wrong :(");
             }
@@ -111,7 +113,12 @@ public class ProfileRepository {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 System.out.println(response.code());
                 if (response.isSuccessful()) {
-                    requestProfiles();
+                    if (!profiles.getValue().isEmpty()) {
+                        setActiveProfile(profiles.getValue().get(0).id);
+                    } else {
+                        requestActiveProfile();
+                        requestProfiles();
+                    }
                     System.out.println("Success");
                 }
             }
@@ -133,8 +140,12 @@ public class ProfileRepository {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 System.out.println(response.code());
                 if (response.isSuccessful()) {
-                    Profile profile = (Profile) response.body();
-                    activeProfileId.setValue(profile.id);
+                    if (response.body() == null) {
+                        activeProfileId.setValue(-1);
+                    } else {
+                        Profile profile = (Profile) response.body();
+                        activeProfileId.setValue(profile.id);
+                    }
                 }
             }
 
@@ -149,12 +160,14 @@ public class ProfileRepository {
 
     public void setActiveProfile(int id) {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<Void> call = terrariumAPI.setActiveProfile(1,id);
+        Call<Void> call = terrariumAPI.setActiveProfile(1, id);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                System.out.println(response.code());
                 if (response.isSuccessful()) {
+
+                    Call<Profile> callSync = terrariumAPI.getActiveProfile(1);
+                    requestActiveProfile();
                     requestProfiles();
                     System.out.println("Success");
                 }
