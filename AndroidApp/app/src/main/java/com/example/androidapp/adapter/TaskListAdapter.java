@@ -91,7 +91,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
         boolean toggleLight = item.toggleLight; //1
         boolean toggleVent = item.toggleVent; //2
-        LocalDateTime dateTime = item.dateTime; //3
+        System.out.println(i);
+        System.out.println(item.dateTime);
+        LocalDateTime dateTime = LocalDateTime.parse(item.dateTime); //3
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedDateTime = null;

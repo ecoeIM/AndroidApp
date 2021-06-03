@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.androidapp.data.model.Profile;
-import com.example.androidapp.model.TerrariumData;
 import com.example.androidapp.networking.ServiceGenerator;
 import com.example.androidapp.networking.TerrariumAPI;
 
@@ -42,7 +41,7 @@ public class ProfileRepository {
 
     public void requestProfiles() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<List<Profile>> call = terrariumAPI.getProfiles();
+        Call<List<Profile>> call = terrariumAPI.getProfiles(1);
         call.enqueue(new Callback<List<Profile>>() {
             @EverythingIsNonNull
             @Override
@@ -127,20 +126,21 @@ public class ProfileRepository {
 
     public void requestActiveProfile() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<Integer> call = terrariumAPI.getActiveProfile();
-        call.enqueue(new Callback<Integer>() {
+        Call<Profile> call = terrariumAPI.getActiveProfile(1);
+        call.enqueue(new Callback<Profile>() {
             @EverythingIsNonNull
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
                 System.out.println(response.code());
                 if (response.isSuccessful()) {
-                    activeProfileId.setValue(response.body());
+                    Profile profile = (Profile) response.body();
+                    activeProfileId.setValue(profile.id);
                 }
             }
 
             @EverythingIsNonNull
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<Profile> call, Throwable t) {
                 System.out.println(t.toString());
                 Log.i("Retrofit", "Something went wrong :(");
             }
@@ -149,7 +149,7 @@ public class ProfileRepository {
 
     public void setActiveProfile(int id) {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<Void> call = terrariumAPI.setActiveProfile(id);
+        Call<Void> call = terrariumAPI.setActiveProfile(1,id);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

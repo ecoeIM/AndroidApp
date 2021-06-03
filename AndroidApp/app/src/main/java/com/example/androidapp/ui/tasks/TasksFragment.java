@@ -157,7 +157,7 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                                     newTask.name = editTextTaskName.getText().toString();
                                     newTask.toggleLight = checkBoxToggleLight.isChecked();
                                     newTask.toggleVent = checkBoxToggleVent.isChecked();
-                                    newTask.dateTime = dtFromFields;
+                                    newTask.dateTime = dtFromFields.toString();
                                     tasks.add(newTask);
                                     adapter.notifyDataSetChanged();
                                     alertDialog.dismiss();

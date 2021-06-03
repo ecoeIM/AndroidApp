@@ -59,6 +59,7 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         temperature_spinner.setAdapter(dataAdapter);
+        viewModel.getTemperatureRecords();
 
         //graph
         lineChart = findViewById(R.id.temperature_graph);

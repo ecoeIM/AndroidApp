@@ -5,6 +5,6 @@ import java.time.LocalDateTime;
 public class LightRecord {
     public int id;
     public double light;
-    public LocalDateTime dateTime;
+    public String dateTime;
     public int terrariumDataId;
 }

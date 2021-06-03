@@ -75,20 +75,20 @@ public interface TerrariumAPI {
     void deleteTask(@Query("id") int taskId);
 
     @GET("api/terrarium/profiles")
-    Call<Profile> getProfiles(@Query("terrariumId") int terrariumId);
+    Call<List<Profile>> getProfiles(@Query("terrariumId") int terrariumId);
 
     @POST("api/terrarium/profiles")
-    Call<Integer> addProfile(@Body Profile profile);
+    Call<Void> addProfile(@Body Profile profile);
 
     @PATCH("api/terrarium/profiles")
-    void updateProfile(@Body Profile profile);
+    Call<Void> updateProfile(@Body Profile profile);
 
     @DELETE("api/terrarium/profiles")
-    void deleteProfile(@Query("id") int id);
+    Call<Void> deleteProfile(@Query("id") int id);
 
     @GET("api/terrarium/profiles/active")
     Call<Profile> getActiveProfile(@Query("terrariumId") int terrariumId);
 
     @PATCH("api/terrarium/profiles/active")
-    void setActiveProfile(@Query("terrariumId") int terrariumId, @Query("profileId") int profileId);
+    Call<Void> setActiveProfile(@Query("terrariumId") int terrariumId, @Query("profileId") int profileId);
 }
