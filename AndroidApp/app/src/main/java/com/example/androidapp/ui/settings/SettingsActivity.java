@@ -43,12 +43,15 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
     private ImageButton imageButtonAppInfo;
     private Button buttonSendEmail;
     private TextView textViewListIdLabelSettings;
+    private List<Profile> scopedProfiles;
+    private int activeProfileId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
         viewModel = new ViewModelProvider(this).get(SettingsActivityViewModel.class);
         buttonLogOut = findViewById(R.id.button_log_out);
         imageButtonAddProfileHelp = findViewById(R.id.image_button_add_profile_help);
@@ -61,14 +64,46 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
         imageButtonAppInfo = findViewById(R.id.image_button_app_info);
         buttonSendEmail = findViewById(R.id.button_send_email);
         textViewListIdLabelSettings = findViewById(R.id.text_view_list_id_label_settings);
-
-        //TODO:set textView to real logged email textViewListIdLabelSettings
         textViewListIdLabelSettings.setText(viewModel.getCurrentEmail());
+        scopedProfiles = new ArrayList<>();
+
+        imageButtonProfileInfo.setEnabled(false);
+        imageButtonDeleteProfile.setEnabled(false);
+        imageButtonEditProfile.setEnabled(false);
 
         //Toolbar
         toolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //observers
+        viewModel.getActiveProfile().observe(this, profileId -> {
+            activeProfileId = profileId.intValue();
+        });
+
+        viewModel.getProfiles().observe(this, profiles -> {
+            scopedProfiles = profiles;
+
+            //Spinner
+            spinnerProfileSelector.setOnItemSelectedListener(this);
+            List<String> spinnerOptions = new ArrayList<>();
+            for (int i = 0; i < scopedProfiles.size(); i++) {
+                spinnerOptions.add(scopedProfiles.get(i).name);
+            }
+            ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerProfileSelector.setAdapter(dataAdapter);
+
+            if (!scopedProfiles.isEmpty()) {
+                imageButtonProfileInfo.setEnabled(true);
+                imageButtonDeleteProfile.setEnabled(true);
+                imageButtonEditProfile.setEnabled(true);
+            } else {
+                imageButtonProfileInfo.setEnabled(false);
+                imageButtonDeleteProfile.setEnabled(false);
+                imageButtonEditProfile.setEnabled(false);
+            }
+        });
 
         //share
         imageButtonShare.setOnClickListener(v -> {
@@ -358,17 +393,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             AlertDialog dialog = builder.create();
             dialog.show();
         });
-
-        //Spinner
-        spinnerProfileSelector.setOnItemSelectedListener(this);
-        List<String> spinnerOptions = new ArrayList<>();
-        //TODO:replace with real data
-        spinnerOptions.add("Profile 1");
-        spinnerOptions.add("Profile 2");
-        spinnerOptions.add("Profile 3");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerProfileSelector.setAdapter(dataAdapter);
 
         //help (profiles)
         imageButtonAddProfileHelp.setOnClickListener(v -> {
