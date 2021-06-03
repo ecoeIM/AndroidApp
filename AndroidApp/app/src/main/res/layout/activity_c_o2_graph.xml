@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Carbon Dioxide"/>
+        app:title="@string/carbon_dioxide"/>
     <TextView
         android:id="@+id/textView_co2Graph"
         android:layout_width="wrap_content"
