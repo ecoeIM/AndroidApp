@@ -66,13 +66,13 @@ public interface TerrariumAPI {
     Call<Boolean> getVentState();
 
     @GET("api/terrarium/tasks")
-    Call<Task> getTasks(@Query("terrariumId") int terrariumId);
+    Call<List<Task>> getTasks(@Query("terrariumId") int terrariumId);
 
     @POST("api/terrarium/tasks")
-    void addTask(@Body Task task);
+    Call<Void> addTask(@Body Task task);
 
     @DELETE("api/terrarium/tasks")
-    void deleteTask(@Query("id") int taskId);
+    Call<Void> deleteTask(@Query("id") int taskId);
 
     @GET("api/terrarium/profiles")
     Call<List<Profile>> getProfiles(@Query("terrariumId") int terrariumId);

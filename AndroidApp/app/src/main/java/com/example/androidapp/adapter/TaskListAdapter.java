@@ -88,12 +88,16 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.ViewHo
 
     private String getDescription(int i) {
         Task item = tasks.get(i);
+        LocalDateTime dateTime = null;
 
         boolean toggleLight = item.toggleLight; //1
         boolean toggleVent = item.toggleVent; //2
-        System.out.println(i);
-        System.out.println(item.dateTime);
-        LocalDateTime dateTime = LocalDateTime.parse(item.dateTime); //3
+        if (item.dateTime != null) { //3
+            dateTime = LocalDateTime.parse(item.dateTime);
+            if (dateTime.getYear() == 1) {
+                dateTime = null;
+            }
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String formattedDateTime = null;

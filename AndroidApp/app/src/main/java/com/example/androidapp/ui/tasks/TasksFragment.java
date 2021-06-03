@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public class TasksFragment extends Fragment implements TaskListAdapter.OnListDeleteTaskClickListener {
 
@@ -37,7 +38,7 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
     private ImageButton imageButtonTasksHelp;
     private RecyclerView recyclerView;
     private TaskListAdapter adapter;
-    private ArrayList<Task> tasks;
+    private List scopedTasks;
     private TextView emptyView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -45,6 +46,7 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
         tasksViewModel =
                 new ViewModelProvider(this).get(TasksViewModel.class);
         View root = inflater.inflate(R.layout.fragment_tasks, container, false);
+        scopedTasks = new ArrayList<>();
         fabCreateTask = root.findViewById(R.id.fab_create_task);
         imageButtonTasksHelp = root.findViewById(R.id.image_button_tasks_help);
         emptyView = root.findViewById(R.id.empty_view);
@@ -52,30 +54,30 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.hasFixedSize();
 
+        tasksViewModel.getTasks();
 
-        tasks = new ArrayList<>();
-        Task t0 = new Task();
-        t0.name = "t0";
-        Task t1 = new Task();
-        t1.name = "t1";
-        tasks.add(t0);
-        tasks.add(t1);
+        tasksViewModel.getTasks().observe(getViewLifecycleOwner(), tasks -> {
+            scopedTasks = tasks;
 
-        //adapter
-        if (tasks != null) {
+            //adapter
             if (!tasks.isEmpty()) {
                 recyclerView.setVisibility(View.VISIBLE);
                 emptyView.setVisibility(View.GONE);
-                adapter = new TaskListAdapter(tasks, this);
+                adapter = new TaskListAdapter((ArrayList<Task>) scopedTasks, this);
                 recyclerView.setAdapter(adapter);
             } else {
                 recyclerView.setVisibility(View.GONE);
                 emptyView.setVisibility(View.VISIBLE);
             }
-        } else {
-            recyclerView.setVisibility(View.GONE);
-            emptyView.setVisibility(View.VISIBLE);
-        }
+        });
+
+//        tasks = new ArrayList<>();
+//        Task t0 = new Task();
+//        t0.name = "t0";
+//        Task t1 = new Task();
+//        t1.name = "t1";
+//        tasks.add(t0);
+//        tasks.add(t1);
 
 
         //help button
@@ -158,7 +160,9 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                                     newTask.toggleLight = checkBoxToggleLight.isChecked();
                                     newTask.toggleVent = checkBoxToggleVent.isChecked();
                                     newTask.dateTime = dtFromFields.toString();
-                                    tasks.add(newTask);
+                                    newTask.terrariumId = 1;
+                                    scopedTasks.add(newTask);
+                                    tasksViewModel.addTask(newTask);
                                     adapter.notifyDataSetChanged();
                                     alertDialog.dismiss();
                                 }
@@ -167,7 +171,8 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
                     } else {
                         Task newTask = new Task();
                         newTask.name = editTextTaskName.getText().toString();
-                        tasks.add(newTask);
+                        newTask.terrariumId = 1;
+                        tasksViewModel.addTask(newTask);
                         adapter.notifyDataSetChanged();
                         alertDialog.dismiss();
                     }
@@ -182,7 +187,10 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
         builder.setMessage("Do you really want to delete this task?");
         builder.setPositiveButton("Delete", (dialog, id) -> {
-            tasks.remove(index);
+            //scopedTasks.remove(index);
+            Task selectedTask = (Task) scopedTasks.get(index);
+            int taskId = selectedTask.id;
+            tasksViewModel.deleteTask(taskId);
             adapter.notifyDataSetChanged();
         });
         builder.setNegativeButton("Cancel", (dialog, id) -> {

@@ -8,6 +8,7 @@ public class Task {
     public String dateTime;
     public boolean toggleLight;
     public boolean toggleVent;
+    public int terrariumId;
 
     public Task() {
 
