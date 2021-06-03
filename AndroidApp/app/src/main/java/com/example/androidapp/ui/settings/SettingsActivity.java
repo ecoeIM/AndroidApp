@@ -453,7 +453,6 @@ public class SettingsActivity extends AppCompatActivity implements AdapterView.O
             builder.setNegativeButton("Cancel", (dialog, id) -> {
             });
             builder.setPositiveButton("Log out", (dialog, id) -> {
-                //TODO:fix
                 viewModel.signOut();
                 startActivity(new Intent(this, SignInActivity.class));
                 finish();
