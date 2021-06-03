@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.androidapp.data.model.TemperatureRecord;
-import com.example.androidapp.model.TerrariumData;
 import com.example.androidapp.networking.ServiceGenerator;
 import com.example.androidapp.networking.TerrariumAPI;
 
@@ -37,12 +36,14 @@ public class TemperatureGraphRepository {
 
     public void requestTerrariumRecords() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<List<TemperatureRecord>> call = terrariumAPI.getAllTemperature();
+        Call<List<TemperatureRecord>> call = terrariumAPI.getAllTemperature(1);
         call.enqueue(new Callback<List<TemperatureRecord>>() {
             @EverythingIsNonNull
             @Override
             public void onResponse(Call<List<TemperatureRecord>> call, Response<List<TemperatureRecord>> response) {
                 System.out.println(response.code());
+                System.out.println(response.body());
+                System.out.println("ABOBAOBABOBA");
                 if (response.isSuccessful()) {
                     temperatureRecords.setValue(response.body());
                 }

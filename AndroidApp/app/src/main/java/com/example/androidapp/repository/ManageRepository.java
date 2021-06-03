@@ -5,7 +5,7 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.androidapp.model.TerrariumData;
+import com.example.androidapp.data.model.TerrariumData;
 import com.example.androidapp.networking.ServiceGenerator;
 import com.example.androidapp.networking.TerrariumAPI;
 

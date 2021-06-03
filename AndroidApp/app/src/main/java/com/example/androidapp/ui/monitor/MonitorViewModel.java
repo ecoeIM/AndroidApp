@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.androidapp.model.TerrariumData;
+import com.example.androidapp.data.model.TerrariumData;
 import com.example.androidapp.repository.MonitorRepository;
 
 public class MonitorViewModel extends ViewModel {

@@ -11,6 +11,7 @@ public class Profile {
     public int maxCo2;
     public int minLight;
     public int maxLight;
+    public int terrariumId;
 
     public Profile() {
 

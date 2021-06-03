@@ -37,7 +37,7 @@ public class Co2GraphRepository {
 
     public void requestCo2Records() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<List<Co2Record>> call = terrariumAPI.getAllCo2();
+        Call<List<Co2Record>> call = terrariumAPI.getAllCo2(1);
         call.enqueue(new Callback<List<Co2Record>>() {
             @EverythingIsNonNull
             @Override

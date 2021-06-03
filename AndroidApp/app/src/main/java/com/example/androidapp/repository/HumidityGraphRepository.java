@@ -37,7 +37,7 @@ public class HumidityGraphRepository {
 
     public void requestHumidityRecords() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<List<HumidityRecord>> call = terrariumAPI.getAllHumidity();
+        Call<List<HumidityRecord>> call = terrariumAPI.getAllHumidity(1);
         call.enqueue(new Callback<List<HumidityRecord>>() {
             @EverythingIsNonNull
             @Override

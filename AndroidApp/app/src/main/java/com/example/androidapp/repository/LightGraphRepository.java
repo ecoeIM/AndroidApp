@@ -37,7 +37,7 @@ public class LightGraphRepository {
 
     public void requestLightRecords() {
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
-        Call<List<LightRecord>> call = terrariumAPI.getAllLight();
+        Call<List<LightRecord>> call = terrariumAPI.getAllLight(1);
         call.enqueue(new Callback<List<LightRecord>>() {
             @EverythingIsNonNull
             @Override

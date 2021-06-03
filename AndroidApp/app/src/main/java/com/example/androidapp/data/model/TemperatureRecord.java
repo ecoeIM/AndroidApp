@@ -6,4 +6,5 @@ public class TemperatureRecord {
     public int id;
     public double temperature;
     public LocalDateTime dateTime;
+    public int terrariumDataId;
 }
