@@ -2,7 +2,7 @@ package com.example.androidapp.data.model;
 
 public class Profile {
     public int id;
-    public String name;
+    public String profileName;
     public int minTemp;
     public int maxTemp;
     public int minHumid;

@@ -51,4 +51,8 @@ public class SettingsActivityViewModel extends AndroidViewModel {
     public void deleteProfile(int profileId) {
         profileRepository.deleteProfile(profileId);
     }
+
+    public void setActiveProfile(int profileId) {
+        profileRepository.setActiveProfile(profileId);
+    }
 }

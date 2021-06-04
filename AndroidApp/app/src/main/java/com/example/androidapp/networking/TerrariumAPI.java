@@ -78,7 +78,7 @@ public interface TerrariumAPI {
     Call<List<Profile>> getProfiles(@Query("terrariumId") int terrariumId);
 
     @POST("api/terrarium/profiles")
-    Call<Void> addProfile(@Body Profile profile);
+    Call<Profile> addProfile(@Body Profile profile);
 
     @PATCH("api/terrarium/profiles")
     Call<Void> updateProfile(@Body Profile profile);
