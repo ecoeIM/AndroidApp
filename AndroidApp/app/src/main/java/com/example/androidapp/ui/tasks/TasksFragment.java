@@ -71,15 +71,6 @@ public class TasksFragment extends Fragment implements TaskListAdapter.OnListDel
             }
         });
 
-//        tasks = new ArrayList<>();
-//        Task t0 = new Task();
-//        t0.name = "t0";
-//        Task t1 = new Task();
-//        t1.name = "t1";
-//        tasks.add(t0);
-//        tasks.add(t1);
-
-
         //help button
         imageButtonTasksHelp.setOnClickListener(v -> {
             androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getActivity());
