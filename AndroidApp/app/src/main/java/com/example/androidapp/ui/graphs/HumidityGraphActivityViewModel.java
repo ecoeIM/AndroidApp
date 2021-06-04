@@ -43,9 +43,9 @@ public class HumidityGraphActivityViewModel extends ViewModel {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Temperature graph");
+        cartesian.title("Humidity graph");
 
-        cartesian.yAxis(0).title("degrees");
+        cartesian.yAxis(0).title("%");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
@@ -56,7 +56,7 @@ public class HumidityGraphActivityViewModel extends ViewModel {
         set.data(seriesData);
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
         series1 = cartesian.line(series1Mapping);
-        series1.name("Temperature");
+        series1.name("Humidity");
         series1.hovered().markers().enabled(true);
         series1.hovered().markers()
                 .type(MarkerType.CIRCLE)

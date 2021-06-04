@@ -50,7 +50,7 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
         toolbar = findViewById(R.id.temperature_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        
+
         viewModel.getTemperatureRecords().observe(this, temperatureRecords -> {
             this.viewModel.updateGraph(temperatureRecords);
         });

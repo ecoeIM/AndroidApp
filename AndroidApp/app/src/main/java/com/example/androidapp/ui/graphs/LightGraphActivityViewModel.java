@@ -44,9 +44,9 @@ public class LightGraphActivityViewModel extends ViewModel {
 
         cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
 
-        cartesian.title("Temperature graph");
+        cartesian.title("Light graph");
 
-        cartesian.yAxis(0).title("degrees");
+        cartesian.yAxis(0).title("luminous");
         cartesian.xAxis(0).labels().padding(5d, 5d, 5d, 5d);
 
         List<DataEntry> seriesData = new ArrayList<>();
@@ -57,7 +57,7 @@ public class LightGraphActivityViewModel extends ViewModel {
         set.data(seriesData);
         Mapping series1Mapping = set.mapAs("{ x: 'x', value: 'value' }");
         series1 = cartesian.line(series1Mapping);
-        series1.name("Temperature");
+        series1.name("Light");
         series1.hovered().markers().enabled(true);
         series1.hovered().markers()
                 .type(MarkerType.CIRCLE)
