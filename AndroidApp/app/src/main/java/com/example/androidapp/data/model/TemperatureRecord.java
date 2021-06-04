@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class TemperatureRecord {
     public int id;
-    public double temperature;
+    public double value;
     public String dateTime;
     public int terrariumDataId;
 }

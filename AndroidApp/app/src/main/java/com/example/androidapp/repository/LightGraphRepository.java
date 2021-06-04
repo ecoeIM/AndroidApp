@@ -36,6 +36,7 @@ public class LightGraphRepository {
     }
 
     public void requestLightRecords() {
+        System.out.println("ABOBA");
         TerrariumAPI terrariumAPI = ServiceGenerator.getTerrariumAPI();
         Call<List<LightRecord>> call = terrariumAPI.getAllLight(1);
         call.enqueue(new Callback<List<LightRecord>>() {
@@ -44,6 +45,8 @@ public class LightGraphRepository {
             public void onResponse(Call<List<LightRecord>> call, Response<List<LightRecord>> response) {
                 System.out.println(response.code());
                 if (response.isSuccessful()) {
+                   List<LightRecord> records =  (List<LightRecord>)(response.body());
+                    System.out.println(records.size());
                     lightRecords.setValue(response.body());
                 }
             }

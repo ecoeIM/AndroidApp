@@ -43,9 +43,6 @@ public class TemperatureGraphRepository {
             public void onResponse(Call<List<TemperatureRecord>> call, Response<List<TemperatureRecord>> response) {
                 System.out.println(response.code());
                 List<TemperatureRecord> records = (List<TemperatureRecord>)(response.body());
-                System.out.println(records.size());
-                System.out.println(records.get(0).dateTime);
-                System.out.println("ABOBAOBABOBA");
                 if (response.isSuccessful()) {
                     temperatureRecords.setValue(response.body());
                 }

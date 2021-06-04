@@ -2,36 +2,42 @@ package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.anychart.AnyChart;
+import com.anychart.AnyChartView;
+import com.anychart.chart.common.dataentry.DataEntry;
+import com.anychart.chart.common.dataentry.ValueDataEntry;
+import com.anychart.charts.Cartesian;
+import com.anychart.core.cartesian.series.Line;
+import com.anychart.data.Mapping;
+import com.anychart.data.Set;
+import com.anychart.enums.Anchor;
+import com.anychart.enums.MarkerType;
+import com.anychart.enums.TooltipPositionMode;
+import com.anychart.graphics.vector.Stroke;
 import com.example.androidapp.R;
-import com.github.mikephil.charting.charts.LineChart;
+import com.example.androidapp.data.model.TemperatureRecord;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import lecho.lib.hellocharts.model.Axis;
-import lecho.lib.hellocharts.model.Line;
-import lecho.lib.hellocharts.model.LineChartData;
-import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.view.LineChartView;
 
 
 public class TemperatureGraphActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private Toolbar toolbar;
     private Spinner temperature_spinner;
-    private LineChart lineChart;
+    private AnyChartView lineChartView;
     private TemperatureGraphActivityViewModel viewModel;
 
     @Override
@@ -44,52 +50,14 @@ public class TemperatureGraphActivity extends AppCompatActivity implements Adapt
         toolbar = findViewById(R.id.temperature_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Spinner
-        temperature_spinner = findViewById(R.id.temperature_spinner);
-        temperature_spinner.setOnItemSelectedListener(this);
-        List<String> spinnerOptions = new ArrayList<>();
-        spinnerOptions.add("Last hour");
-        spinnerOptions.add("Last day");
-        spinnerOptions.add("Last 7 days");
-        spinnerOptions.add("Last 28 days");
-        spinnerOptions.add("Last 90 days");
-        spinnerOptions.add("Last 365 days");
-        spinnerOptions.add("Lifetime");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        temperature_spinner.setAdapter(dataAdapter);
-        viewModel.getTemperatureRecords();
+        
+        viewModel.getTemperatureRecords().observe(this, temperatureRecords -> {
+            this.viewModel.updateGraph(temperatureRecords);
+        });
 
         //graph
-        lineChart = findViewById(R.id.temperature_graph);
-
-//        //graph
-//        this.lineChartView = findViewById(R.id.temperature_graph);
-//
-//        List<PointValue> values = new ArrayList<PointValue>();
-//        values.add(new PointValue(0, 2));
-//        values.add(new PointValue(1, 4));
-//        values.add(new PointValue(2, 3));
-//        values.add(new PointValue(3, 4));
-//        values.add(new PointValue(4, 7));
-//
-//        //In most cased you can call data model methods in builder-pattern-like manner.
-//        Line line = new Line(values).setColor(Color.parseColor("#008e54")).setCubic(true);
-//        List<Line> lines = new ArrayList<>();
-//        lines.add(line);
-//
-//        LineChartData data = new LineChartData();
-//        data.setLines(lines);
-//        Axis axisX = new Axis();
-//        axisX.setName("Time");
-//        Axis axisY = new Axis();
-//        axisY.setName("Temperature");
-//
-//        data.setAxisXBottom(axisX);
-//        data.setAxisYLeft(axisY);
-//
-//        lineChartView.setLineChartData(data);
+        lineChartView = findViewById(R.id.temperature_graph);
+        lineChartView.setChart(viewModel.getGraph());
     }
 
     @Override

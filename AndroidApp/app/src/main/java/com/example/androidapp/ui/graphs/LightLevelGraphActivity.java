@@ -2,6 +2,8 @@ package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.anychart.AnyChartView;
 import com.example.androidapp.R;
+import com.example.androidapp.data.model.LightRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,60 +29,28 @@ public class LightLevelGraphActivity extends AppCompatActivity implements Adapte
 
     private Toolbar toolbar;
     private Spinner light_spinner;
-    private LineChartView lightChartView;
+    private AnyChartView lightChartView;
+    private LightGraphActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_light_level_graph);
+        viewModel = new ViewModelProvider(this).get(LightGraphActivityViewModel.class);
 
         //Toolbar
         toolbar = findViewById(R.id.light_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Spinner
-        light_spinner = findViewById(R.id.light_spinner);
-        light_spinner.setOnItemSelectedListener(this);
-        List<String> spinnerOptions = new ArrayList<>();
-        spinnerOptions.add("Last hour");
-        spinnerOptions.add("Last day");
-        spinnerOptions.add("Last 7 days");
-        spinnerOptions.add("Last 28 days");
-        spinnerOptions.add("Last 90 days");
-        spinnerOptions.add("Last 365 days");
-        spinnerOptions.add("Lifetime");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        light_spinner.setAdapter(dataAdapter);
         //Light_Graph.
         this.lightChartView = findViewById(R.id.light_graph);
+        this.lightChartView.setChart(viewModel.getGraph());
+        this.viewModel.getLightRecords().observe(this, lightRecords -> {
+            this.viewModel.updateGraph(lightRecords);
+        });
 
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 9));
-        values.add(new PointValue(1, 8));
-        values.add(new PointValue(2, 10));
-        values.add(new PointValue(3, 5));
-        values.add(new PointValue(4, 9));
 
-        //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.parseColor("#008e54")).setCubic(true);
-        List<Line> lines = new ArrayList<>();
-        lines.add(line);
-
-        LineChartData data = new LineChartData();
-
-        Axis axisX = new Axis();
-        axisX.setName("Time");
-        Axis axisY = new Axis();
-        axisY.setName("LightLevel");
-
-        data.setAxisXBottom(axisX);
-        data.setAxisYLeft(axisY);
-
-        data.setLines(lines);
-
-        lightChartView.setLineChartData(data);
     }
 
     //for correct back animation

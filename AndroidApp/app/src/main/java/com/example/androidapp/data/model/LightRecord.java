@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class LightRecord {
     public int id;
-    public double light;
+    public double value;
     public String dateTime;
     public int terrariumDataId;
 }

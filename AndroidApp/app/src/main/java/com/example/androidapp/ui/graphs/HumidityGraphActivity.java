@@ -2,6 +2,8 @@ package com.example.androidapp.ui.graphs;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.anychart.AnyChartView;
 import com.example.androidapp.R;
+import com.example.androidapp.data.model.HumidityRecord;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,59 +29,26 @@ public class HumidityGraphActivity extends AppCompatActivity implements AdapterV
 
     private Toolbar toolbar;
     private Spinner humiditySpinner;
-    private LineChartView humidityChartView;
+    private AnyChartView humidityChartView;
+    private HumidityGraphActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_humidity_graph);
+        viewModel =  new ViewModelProvider(this).get(HumidityGraphActivityViewModel.class);
 
         //Toolbar
         toolbar = findViewById(R.id.humidity_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //Spinner
-        humiditySpinner = findViewById(R.id.humidity_spinner);
-        humiditySpinner.setOnItemSelectedListener(this);
-        List<String> spinnerOptions = new ArrayList<>();
-        spinnerOptions.add("Last hour");
-        spinnerOptions.add("Last day");
-        spinnerOptions.add("Last 7 days");
-        spinnerOptions.add("Last 28 days");
-        spinnerOptions.add("Last 90 days");
-        spinnerOptions.add("Last 365 days");
-        spinnerOptions.add("Lifetime");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerOptions);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        humiditySpinner.setAdapter(dataAdapter);
         //Light_Graph.
         this.humidityChartView = findViewById(R.id.humidity_graph);
-
-        List<PointValue> values = new ArrayList<PointValue>();
-        values.add(new PointValue(0, 4));
-        values.add(new PointValue(1, 2));
-        values.add(new PointValue(2, 12));
-        values.add(new PointValue(3, 3));
-        values.add(new PointValue(4, 3));
-
-        //In most cased you can call data model methods in builder-pattern-like manner.
-        Line line = new Line(values).setColor(Color.parseColor("#008e54")).setCubic(true);
-        List<Line> lines = new ArrayList<>();
-        lines.add(line);
-
-        LineChartData data = new LineChartData();
-        Axis axisX = new Axis();
-        axisX.setName("Time");
-        Axis axisY = new Axis();
-        axisY.setName("Humidity");
-
-        data.setAxisXBottom(axisX);
-        data.setAxisYLeft(axisY);
-
-        data.setLines(lines);
-
-        humidityChartView.setLineChartData(data);
+        this.humidityChartView.setChart(viewModel.getGraph());
+        this.viewModel.getHumidityRecords().observe(this, humidityRecords -> {
+            viewModel.updateGraph(humidityRecords);
+        });
     }
 
     //for correct back animation
