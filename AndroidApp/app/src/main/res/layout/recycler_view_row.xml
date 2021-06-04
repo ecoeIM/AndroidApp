@@ -31,7 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Task: "
+                    android:text="@string/task"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Date: "
+                    android:text="@string/date"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Time: "
+                    android:text="@string/time"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Light: "
+                android:text="@string/lightt"
                 android:textSize="24sp"
                 android:textStyle="bold" />
                 <TextView
@@ -118,7 +118,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="Vent: "
+                    android:text="@string/vent"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 

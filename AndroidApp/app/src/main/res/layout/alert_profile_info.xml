@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Humidity"
+            android:text="@string/humidity"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -77,7 +77,7 @@
             android:layout_marginTop="28dp"
             android:layout_marginEnd="20dp"
             android:breakStrategy="high_quality"
-            android:text="Below, you can find the chosen boundaries for the selected profile. To change them, go back and press the edit button"
+            android:text="@string/below_you_can_find_the_chosen_boundaries_for_the_selected_profile_to_change_them_go_back_and_press_the_edit_button"
             android:textAlignment="viewStart"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Temperature"
+            android:text="@string/temperature"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView25" />
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
-            android:text="Light"
+            android:text="@string/light"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView28" />

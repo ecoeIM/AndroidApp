@@ -18,7 +18,7 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:fontFamily="sans-serif-black"
-            android:text="Manage"
+            android:text="@string/manage"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical|right"
-                android:text="Light status: "
+                android:text="@string/light_status"
                 android:textSize="21sp" />
 
             <TextView
@@ -130,7 +130,7 @@
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical|right"
-                android:text="Vent status: "
+                android:text="@string/vent_status"
                 android:textSize="21sp" />
 
             <TextView
